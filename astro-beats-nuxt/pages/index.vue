@@ -5,7 +5,11 @@ const router = useRouter();
 </script>
 
 <template>
-  <h1>Welcome</h1>
+  <h1 class="text-center text-5xl my-3">AstroBeats</h1>
+  <p class="text-center text-xl my-3">
+    Click on a star sign to see your horoscope, and explore your horoscope's
+    musical vibe for today ✨
+  </p>
   <div class="flex flex-wrap justify-center">
     <div
       v-for="sign in StarSigns"
