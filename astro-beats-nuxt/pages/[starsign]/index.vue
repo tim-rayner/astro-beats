@@ -19,12 +19,28 @@ console.log(horoscope);
 </script>
 
 <template>
-  <div class="flex text-center flex-col" v-if="horoscope">
+  <div class="flex flex-col" v-if="horoscope">
     <h1 class="text-5xl text-center m-auto my-3">
       {{ horoscope.name }}
     </h1>
-    <h4>{{ horoscope.date }}</h4>
-    <p class="px-24 my-3">{{ horoscope.horoscopeReading }}</p>
+    <h4 class="text-center">{{ horoscope.date }}</h4>
+    <p class="px-24 my-3 text-center">{{ horoscope.horoscopeReading }}</p>
+
+    <div class="songs-wrapper">
+      <div
+        v-for="song in horoscope.songs"
+        :key="song.id"
+        class="m-2 flex flex-col song-card border p-6"
+      >
+        <div class="flex flex-row my-3">
+          <img :src="song.img" :alt="song.song" />
+          <h4>{{ song.song }}</h4>
+          &nbsp;-&nbsp;
+          <p>{{ song.artist }}</p>
+        </div>
+        {{ song.reason }}
+      </div>
+    </div>
   </div>
   <div v-else-if="isLoading">
     <p class="px-24 my-3">Loading...</p>

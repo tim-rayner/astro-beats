@@ -8,7 +8,13 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  modules: ["nuxt-primevue"],
+  modules: ["nuxt-primevue", "@pinia/nuxt"],
+  runtimeConfig: {
+    // Keys within runtimeConfig are exposed client-side
+    apiBase: "/api",
+    spotifyClientId: process.env.SPOTIFY_CLIENT_ID,
+    spotifyClientSecret: process.env.SPOTIFY_CLIENT_SECRET,
+  },
   primevue: {
     /* Options */
     components: {
