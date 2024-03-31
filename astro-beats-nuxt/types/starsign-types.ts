@@ -4,3 +4,9 @@ export type StarSign = {
   name: string;
   description: string;
 };
+
+export type HoroscopeResponse = {
+  date: string;
+  horoscopeReading: string;
+  name: string;
+};
