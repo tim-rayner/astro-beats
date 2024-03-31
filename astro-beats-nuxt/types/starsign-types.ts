@@ -1,5 +1,6 @@
-export type StarSign {
-    id: number;
-    name: string;
-    description: string;  
-}
+export type StarSign = {
+  id: number;
+  img?: string;
+  name: string;
+  description: string;
+};

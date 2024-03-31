@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import "primevue/resources/themes/aura-light-green/theme.css";
+
 useHead({
   title: "Home",
   meta: [
