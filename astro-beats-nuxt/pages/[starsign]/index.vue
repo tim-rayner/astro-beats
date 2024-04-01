@@ -1,6 +1,7 @@
 <script setup lang="ts">
 /**
  * @TODO style this component so the songs are displayed extremely professionally, prehaps as a carousel
+ * innit
  */
 import { useRoute } from "vue-router";
 
