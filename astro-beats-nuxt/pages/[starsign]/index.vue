@@ -9,6 +9,9 @@ const route = useRoute();
 const { starsign } = route.params;
 const isLoading = ref(true);
 const activeIndex = ref(0);
+const viewportWidth = ref(
+  typeof window !== "undefined" ? window.innerWidth : 0
+);
 
 const responsiveOptions = ref([
   {
@@ -44,6 +47,15 @@ const { data: horoscope } = await useFetch(`/api/horoscope/${starsign}`).then(
 const redirectToSpotify = (url: string) => {
   window.open(url, "_blank");
 };
+
+const updateActiveIndex = (event: number) => {
+  if (viewportWidth.value > 767) {
+    // replace 767 with the breakpoint you want
+    activeIndex.value = event + 1;
+  } else {
+    activeIndex.value = event;
+  }
+};
 </script>
 
 <template>
@@ -66,11 +78,13 @@ const redirectToSpotify = (url: string) => {
         :responsiveOptions="responsiveOptions"
         class="w-full"
         :circular="true"
-        v-on:update:page="activeIndex = $event"
+        v-on:update:page="updateActiveIndex($event)"
+        :showIndicators="false"
       >
         <template #item="slotProps">
           <div
             class="my-6 shadow-lg bg-white rounded-lg text-[#161937] mx-0 md:mx-6"
+            :class="{ 'active-card': slotProps.index === activeIndex }"
           >
             <div class="flex flex-row">
               <img :src="slotProps.data.img" :alt="slotProps.data.song" />
@@ -117,5 +131,10 @@ const redirectToSpotify = (url: string) => {
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
+}
+
+.active-card {
+  --tw-shadow-color: #49446f;
+  --tw-shadow: var(--tw-shadow-colored);
 }
 </style>
