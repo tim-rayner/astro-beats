@@ -51,7 +51,7 @@ const redirectToSpotify = (url: string) => {
           </div>
           <PrimeButton
             label="Listen on Spotify"
-            class="w-fit"
+            class="w-fit bg-spotify-green"
             @click="redirectToSpotify(song.externalUrl)"
           />
           <div class="preview-wrapper">

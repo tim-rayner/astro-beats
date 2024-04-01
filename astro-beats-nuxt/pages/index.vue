@@ -11,16 +11,19 @@ const router = useRouter();
     musical vibe for today ✨
   </p>
   <div class="flex flex-wrap justify-center">
-    <div
+    <Card
       v-for="sign in StarSigns"
       :key="sign.id"
-      class="border text-center cursor-pointer p-4 flex flex-col justify-center items-center m-2 shadow-lg bg-white rounded-lg"
+      :class="sign.name.toLowerCase()"
       @click="router.push(`/${sign.name.toLowerCase()}`)"
       style="flex: 1 0 20em"
+      :icon="sign.img!"
     >
-      <h1 class="text-3xl">{{ sign.img }}</h1>
-      <h2 class="text-2xl">{{ sign.name }}</h2>
-      <p>{{ sign.description }}</p>
-    </div>
+      <div class="m-auto">
+        <h1 class="text-5xl text-center mb-3">{{ sign.img }}</h1>
+        <h2 class="text-2xl text-center">{{ sign.name }}</h2>
+        <p class="text-center">{{ sign.description }}</p>
+      </div>
+    </Card>
   </div>
 </template>

@@ -7,10 +7,8 @@
 </script>
 
 <template>
-  <div class="relative">
-    <div
-      class="relative flex flex-col items-center justify-center bg-white dark:bg-black transition-bg"
-    >
+  <div class="relative bg-background min-h-screen">
+    <div class="relative flex flex-col items-center justify-center">
       <div class="content z-50">
         <slot />
       </div>

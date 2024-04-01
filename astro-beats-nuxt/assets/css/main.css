@@ -8,3 +8,24 @@
   @tailwind components;
   @tailwind utilities;
 }
+
+/*
+    #161937,
+    
+    #1d224b,
+    
+    #29325c,
+    
+    #393865,
+    
+    #49446f
+*/
+
+#__nuxt {
+  min-height: 100vh;
+  color: #d1d1d1;
+}
+
+.card {
+  color: #161937;
+}
