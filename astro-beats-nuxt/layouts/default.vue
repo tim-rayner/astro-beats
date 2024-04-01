@@ -9,7 +9,7 @@
 <template>
   <div class="relative bg-background min-h-screen">
     <div class="relative flex flex-col items-center justify-center">
-      <div class="content z-50">
+      <div class="content z-50 w-full">
         <slot />
       </div>
     </div>

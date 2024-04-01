@@ -8,6 +8,30 @@ const route = useRoute();
 
 const { starsign } = route.params;
 const isLoading = ref(true);
+const activeIndex = ref(0);
+
+const responsiveOptions = ref([
+  {
+    breakpoint: "4000px",
+    numVisible: 3,
+    numScroll: 1,
+  },
+  {
+    breakpoint: "1199px",
+    numVisible: 3,
+    numScroll: 1,
+  },
+  {
+    breakpoint: "500px",
+    numVisible: 1,
+    numScroll: 1,
+  },
+  {
+    breakpoint: "100px",
+    numVisible: 1,
+    numScroll: 1,
+  },
+]);
 
 // //GET TRACK DATA
 const { data: horoscope } = await useFetch(`/api/horoscope/${starsign}`).then(
@@ -34,30 +58,43 @@ const redirectToSpotify = (url: string) => {
       </p>
     </div>
 
-    <div class="songs-wrapper w-2/3 mx-auto">
-      <div
-        v-for="song in horoscope.songs"
-        :key="song.id"
-        class="my-6 flex flex-row shadow-lg bg-white rounded-lg"
+    <div class="songs-wrapper mx-auto max-w-full overflow-hidden">
+      <PrimeCarousel
+        :value="horoscope.songs"
+        :numVisible="3"
+        :numScroll="3"
+        :responsiveOptions="responsiveOptions"
+        class="w-full"
+        :circular="true"
+        v-on:update:page="activeIndex = $event"
       >
-        <div class="flex flex-row">
-          <img :src="song.img" :alt="song.song" />
-        </div>
-        <div class="flex flex-col py-3 pl-6">
-          <h4 class="text-2xl">{{ song.song }}</h4>
-          <p class="text-lg">{{ song.artist }}</p>
-          <div class="flex flex-row my-2 w-2/3">
-            <p>{{ song.reason }}</p>
+        <template #item="slotProps">
+          <div
+            class="my-6 shadow-lg bg-white rounded-lg text-[#161937] mx-0 md:mx-6"
+          >
+            <div class="flex flex-row">
+              <img :src="slotProps.data.img" :alt="slotProps.data.song" />
+            </div>
+            <div class="flex flex-col py-3 pl-6">
+              <h4 class="text-2xl">{{ slotProps.data.song }}</h4>
+              <p class="text-lg">{{ slotProps.data.artist }}</p>
+              <PrimeButton
+                label="Listen on Spotify"
+                class="w-fit bg-spotify-green"
+                @click="redirectToSpotify(slotProps.data.externalUrl)"
+              />
+              <div class="preview-wrapper">
+                <SpotifyPlaybackWidget :src="slotProps.data.previewUrl" />
+              </div>
+            </div>
           </div>
-          <PrimeButton
-            label="Listen on Spotify"
-            class="w-fit bg-spotify-green"
-            @click="redirectToSpotify(song.externalUrl)"
-          />
-          <div class="preview-wrapper">
-            <SpotifyPlaybackWidget :src="song.previewUrl" />
-          </div>
-        </div>
+        </template>
+      </PrimeCarousel>
+
+      <div class="explanation">
+        <p class="px-24 my-3 text-center">
+          {{ horoscope.songs[activeIndex].reason }}
+        </p>
       </div>
     </div>
   </div>
@@ -70,3 +107,15 @@ const redirectToSpotify = (url: string) => {
     <p class="px-24 my-3">Failed to load data</p>
   </div>
 </template>
+
+<style>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>

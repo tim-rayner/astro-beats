@@ -20,7 +20,7 @@ export default defineNuxtConfig({
     /* Options */
     components: {
       prefix: "Prime",
-      include: ["Button"],
+      include: ["Button", "Carousel", "InputText", "InputNumber"],
     },
   },
 });
