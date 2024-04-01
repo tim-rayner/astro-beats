@@ -1,7 +1,11 @@
 <script setup lang="ts">
+/**
+ * @TODO style this component so the songs are displayed extremely professionally
+ */
 import { useRoute } from "vue-router";
 
 const route = useRoute();
+
 console.log(route.params); // { name: 'spongebob' }
 
 const { starsign } = route.params;
@@ -15,36 +19,53 @@ const { data: horoscope } = await useFetch(`/api/horoscope/${starsign}`).then(
   }
 );
 
+const redirectToSpotify = (url: string) => {
+  window.open(url, "_blank");
+};
+
 console.log(horoscope);
 </script>
 
 <template>
   <div class="flex flex-col" v-if="horoscope">
-    <h1 class="text-5xl text-center m-auto my-3">
-      {{ horoscope.name }}
-    </h1>
-    <h4 class="text-center">{{ horoscope.date }}</h4>
-    <p class="px-24 my-3 text-center">{{ horoscope.horoscopeReading }}</p>
+    <div class="header">
+      <h1 class="text-5xl text-center m-auto my-3">
+        {{ horoscope.name }}
+      </h1>
+      <h4 class="text-center">{{ horoscope.date }}</h4>
+      <p class="px-24 my-3 text-center">{{ horoscope.horoscopeReading }}</p>
+    </div>
 
-    <div class="songs-wrapper">
+    <div class="songs-wrapper w-2/3 mx-auto">
       <div
         v-for="song in horoscope.songs"
         :key="song.id"
-        class="m-2 flex flex-col song-card border p-6"
+        class="my-6 flex flex-row shadow-lg bg-white rounded-lg"
       >
-        <div class="flex flex-row my-3">
+        <div class="flex flex-row">
           <img :src="song.img" :alt="song.song" />
-          <h4>{{ song.song }}</h4>
-          &nbsp;-&nbsp;
-          <p>{{ song.artist }}</p>
         </div>
-        {{ song.reason }}
+        <div class="flex flex-col py-3 pl-6">
+          <h4 class="text-2xl">{{ song.song }}</h4>
+          <p class="text-lg">{{ song.artist }}</p>
+          <div class="flex flex-row my-2 w-2/3">
+            <p>{{ song.reason }}</p>
+          </div>
+          <PrimeButton
+            label="Listen on Spotify"
+            class="w-fit"
+            @click="redirectToSpotify(song.externalUrl)"
+          />
+          <div class="preview-wrapper"><!-- TODO: INSERT PREVIEW --></div>
+        </div>
       </div>
     </div>
   </div>
+
   <div v-else-if="isLoading">
     <p class="px-24 my-3">Loading...</p>
   </div>
+
   <div v-else>
     <p class="px-24 my-3">Failed to load data</p>
   </div>

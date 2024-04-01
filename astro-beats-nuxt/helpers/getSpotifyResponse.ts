@@ -19,17 +19,9 @@ export const convertSongsToSpotify = async (
 
       const { items } = response.data.tracks;
 
-      console.log("query: ", `{song.song}+${song.artist}`);
-
       if (items.length > 0) {
         //pick song which matches the search query the closest
         const selectedSong = items[0];
-        console.log(
-          "name: ",
-          selectedSong.name,
-          "artist: ",
-          selectedSong.artists[0].name
-        );
 
         song.img = selectedSong.album.images[0].url;
         song.externalUrl = selectedSong.external_urls.spotify;

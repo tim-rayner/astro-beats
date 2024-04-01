@@ -9,21 +9,18 @@ export default defineEventHandler(
     const sign = getRouterParam(event, "starsign");
     const { spotifyClientAccessToken } = parseCookies(event);
 
-    const today = new Date();
-
-    //convert date to the following format: YYYY-MM-DD
-    const formattedDate = `${today.getFullYear()}-${
-      today.getMonth() + 1
-    }-${today.getDate()}`;
-
-    const url = `https://horoscope-app-api.vercel.app/api/v1/get-horoscope/daily?sign=${sign}&day=${formattedDate}`;
+    const url = `https://horoscope-app-api.vercel.app/api/v1/get-horoscope/daily?sign=${sign}&day=today`;
 
     const { data: horoscope } = await axios.get(url);
 
     const returnedHoroscope = {
       date: horoscope.data.date,
       horoscopeReading: horoscope.data.horoscope_data,
-      name: sign! /**@todo validate and sanitise this before request is made */,
+      name:
+        sign![0].toUpperCase() +
+        sign!.slice(
+          1
+        ) /**@todo validate and sanitise this before request is made */,
     };
 
     const rawSongList = await getOpenResponse(
