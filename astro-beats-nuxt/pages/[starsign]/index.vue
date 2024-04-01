@@ -6,8 +6,6 @@ import { useRoute } from "vue-router";
 
 const route = useRoute();
 
-console.log(route.params); // { name: 'spongebob' }
-
 const { starsign } = route.params;
 const isLoading = ref(true);
 
@@ -22,8 +20,6 @@ const { data: horoscope } = await useFetch(`/api/horoscope/${starsign}`).then(
 const redirectToSpotify = (url: string) => {
   window.open(url, "_blank");
 };
-
-console.log(horoscope);
 </script>
 
 <template>
@@ -58,7 +54,9 @@ console.log(horoscope);
             class="w-fit"
             @click="redirectToSpotify(song.externalUrl)"
           />
-          <div class="preview-wrapper"><!-- TODO: INSERT PREVIEW --></div>
+          <div class="preview-wrapper">
+            <SpotifyPlaybackWidget :src="song.previewUrl" />
+          </div>
         </div>
       </div>
     </div>
