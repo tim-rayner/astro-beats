@@ -7,7 +7,7 @@ const { icon } = defineProps<Props>();
 </script>
 
 <template>
-  <div class="card cursor-pointer m-3 shadow-primary shadow-lg">
+  <div class="card cursor-pointer m-3 shadow-lg">
     <p class="icon text-5xl">{{ icon }}</p>
     <div class="card__content flex">
       <slot />
@@ -33,14 +33,15 @@ const { icon } = defineProps<Props>();
 }
 
 .card:hover {
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  --tw-shadow-color: #49446f;
+  --tw-shadow: var(--tw-shadow-colored);
 }
 
 .card__content {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) rotate(-45deg);
+  transform: translate(-50%, -50%) rotate(-65deg);
   width: 100%;
   height: 100%;
   padding: 20px;
@@ -76,7 +77,7 @@ const { icon } = defineProps<Props>();
 }
 
 .card.aries {
-  background: linear-gradient(-45deg, #ff5353 0%, #c52f2f80 100%);
+  background: linear-gradient(-45deg, #ff5353 0%, #5a0f0f80 100%);
 }
 
 .card.taurus {
