@@ -14,7 +14,7 @@ const router = useRouter();
     <div
       v-for="sign in StarSigns"
       :key="sign.id"
-      class="border text-center cursor-pointer p-4 flex flex-col justify-center items-center m-2"
+      class="border text-center cursor-pointer p-4 flex flex-col justify-center items-center m-2 shadow-lg bg-white rounded-lg"
       @click="router.push(`/${sign.name.toLowerCase()}`)"
       style="flex: 1 0 20em"
     >

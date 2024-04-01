@@ -1,6 +1,6 @@
 <script setup lang="ts">
 /**
- * @TODO style this component so the songs are displayed extremely professionally
+ * @TODO style this component so the songs are displayed extremely professionally, prehaps as a carousel
  */
 import { useRoute } from "vue-router";
 
@@ -29,11 +29,13 @@ console.log(horoscope);
 <template>
   <div class="flex flex-col" v-if="horoscope">
     <div class="header">
-      <h1 class="text-5xl text-center m-auto my-3">
+      <h1 class="text-5xl text-center m-auto my-3 font-bold">
         {{ horoscope.name }}
       </h1>
       <h4 class="text-center">{{ horoscope.date }}</h4>
-      <p class="px-24 my-3 text-center">{{ horoscope.horoscopeReading }}</p>
+      <p class="px-24 my-3 text-center">
+        {{ horoscope.horoscopeReading }}
+      </p>
     </div>
 
     <div class="songs-wrapper w-2/3 mx-auto">
