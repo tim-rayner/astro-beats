@@ -9,7 +9,10 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  modules: ["nuxt-primevue", "@pinia/nuxt"],
+  modules: ["nuxt-primevue", "@pinia/nuxt", "nuxt-particles"],
+  particles: {
+    lazy: false,
+  },
   runtimeConfig: {
     // Keys within runtimeConfig are exposed client-side
     apiBase: "/api",

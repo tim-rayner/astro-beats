@@ -119,7 +119,10 @@ const updateActiveIndex = (event: number) => {
   </div>
 
   <div v-else>
-    <p class="px-24 my-3">Failed to load data</p>
+    <Error
+      code="500"
+      message="We ran into a problem whilst trying to load your horoscope"
+    />
   </div>
 </template>
 
