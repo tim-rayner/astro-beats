@@ -3,9 +3,13 @@
 import type { Container } from "@tsparticles/engine";
 import Particles from "@/assets/json/particles.json";
 
-const onLoad = (container: Container) => {
-  // Do something with the container
+const options = {
+  // See https://particles.js.org/docs/interfaces/tsParticles_Engine.Options_Interfaces_IOptions.IOptions.html
+  autoPlay: true,
+  detectRetina: true,
 };
+
+const onLoad = (container: Container) => {};
 
 interface Props {
   code: string;
@@ -34,9 +38,6 @@ const goBack = () => {
       @load="onLoad"
     ></NuxtParticles>
 
-    <!-- or -->
-
-    <NuxtParticles id="tsparticles" @load="onLoad"></NuxtParticles>
     <div class="denied__wrapper">
       <h1>{{ code }}</h1>
       <h3>{{ message }}</h3>
