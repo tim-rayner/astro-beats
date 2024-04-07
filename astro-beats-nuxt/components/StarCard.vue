@@ -77,7 +77,7 @@ const starSign = computed(() =>
 
 <template>
   <div
-    class="card relative transition duration-300 ease-in-out cursor-pointer m-3 bg-[#6af8fd] rounded-full h-72 w-72 mx-auto my-12 hover:bg-[#a6eccf] shadow-spotify-dark shadow-2xl"
+    class="card relative transition duration-300 ease-in-out cursor-pointer m-3 bg-[#6af8fd] rounded-full h-72 w-72 xl:h-[450px] xl:w-[450px] mx-auto my-12 hover:bg-[#a6eccf] shadow-spotify-dark shadow-2xl"
     v-if="starSign"
     :class="name.toLowerCase()"
   >
@@ -91,7 +91,7 @@ const starSign = computed(() =>
           alt="star sign"
           class="icon h-24 w-24 mx-auto my-6"
         />
-        <p class="text-center">{{ description }}</p>
+        <p class="text-center text-xl">{{ description }}</p>
       </div>
     </div>
   </div>
@@ -214,5 +214,18 @@ const starSign = computed(() =>
   -webkit-transform: translateY(-9px);
   transform: translateY(-9px);
   /* rotate 20deg */
+}
+
+/*===================*/
+/* BOB
+/*===================*/
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 </style>
