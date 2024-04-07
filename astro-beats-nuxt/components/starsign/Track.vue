@@ -8,33 +8,39 @@ interface Props {
 }
 
 const { track, activeIndex, index } = defineProps<Props>();
-
-const redirectToSpotify = (url: string) => {
-  window.open(url, "_blank");
-};
 </script>
 
 <template>
   <div
-    class="my-6 shadow-lg bg-white rounded-lg text-[#161937] mx-0 md:mx-6"
+    class="my-6 shadow-lg bg-white rounded-3xl text-[#161937] mx-0 md:mx-6"
     :class="{ 'active-card': index === activeIndex }"
   >
-    <div class="flex flex-row">
-      <img :src="track.img" :alt="track.song" />
-    </div>
-    <div class="flex flex-col py-3 pl-6">
-      <h4 class="text-2xl">{{ track.song }}</h4>
-
-      <p class="text-lg">{{ track.artist }}</p>
-      <PrimeButton
-        v-if="track.externalUrl"
-        label="Listen on Spotify"
-        class="w-fit bg-spotify-green"
-        @click="redirectToSpotify(track.externalUrl!)"
+    <div class="img-wrapper">
+      <img
+        :src="track.img"
+        alt="album cover"
+        class="w-full h-full rounded-3xl rounded-b-none shadow-lg shadow-background"
       />
-      <div class="preview-wrapper" v-if="track.previewUrl">
-        <SpotifyPlaybackWidget :src="track.previewUrl" />
-      </div>
+    </div>
+    <div class="player-wrapper">
+      <StarsignPlayer :track="track" />
     </div>
   </div>
 </template>
+
+<style>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.active-card {
+  --tw-shadow-color: #49446f;
+  --tw-shadow: var(--tw-shadow-colored);
+}
+</style>

@@ -5,11 +5,27 @@ import {
   faTwitch,
   faGithubSquare,
   faTwitter,
+  faSpotify,
 } from "@fortawesome/free-brands-svg-icons";
 
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBars,
+  faPlay,
+  faPause,
+  faMusic,
+} from "@fortawesome/free-solid-svg-icons";
 
-library.add(faTwitterSquare, faTwitch, faGithubSquare, faBars, faTwitter);
+library.add(
+  faTwitterSquare,
+  faTwitch,
+  faGithubSquare,
+  faBars,
+  faTwitter,
+  faPlay,
+  faPause,
+  faSpotify,
+  faMusic
+);
 
 // This is important, we are going to let Nuxt worry about the CSS
 config.autoAddCss = false;

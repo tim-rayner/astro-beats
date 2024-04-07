@@ -59,7 +59,7 @@ const updateActiveIndex = (event: number) => {
   <div class="flex flex-col" v-if="horoscope">
     <div class="header">
       <h4 class="text-center">{{ horoscope.date }}</h4>
-      <p class="px-24 my-3 text-center">
+      <p class="px-12 my-3 text-center text-lg">
         {{ horoscope.horoscopeReading }}
       </p>
     </div>
@@ -67,12 +67,11 @@ const updateActiveIndex = (event: number) => {
     <div class="songs-wrapper mx-auto max-w-full overflow-hidden">
       <PrimeCarousel
         :value="horoscope.songs"
-        :numScroll="1"
         :responsiveOptions="responsiveOptions"
         class="w-full"
         :circular="true"
         v-on:update:page="updateActiveIndex($event)"
-        :showIndicators="false"
+        :showIndicators="true"
       >
         <template #item="slotProps">
           <StarsignTrack
@@ -84,7 +83,7 @@ const updateActiveIndex = (event: number) => {
       </PrimeCarousel>
 
       <div class="explanation">
-        <p class="px-24 my-3 text-center">
+        <p class="px-12 my-3 text-center text-lg">
           {{ horoscope.songs[activeIndex].reason }}
         </p>
       </div>
@@ -102,20 +101,3 @@ const updateActiveIndex = (event: number) => {
     />
   </div>
 </template>
-
-<style>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-
-.active-card {
-  --tw-shadow-color: #49446f;
-  --tw-shadow: var(--tw-shadow-colored);
-}
-</style>
