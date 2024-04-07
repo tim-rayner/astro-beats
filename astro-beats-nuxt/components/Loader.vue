@@ -3,7 +3,7 @@ import { onMounted, ref, watch } from "vue";
 import useUiStore from "~/store/ui";
 import { storeToRefs } from "pinia";
 
-const { pageLoader } = storeToRefs(useUiStore());
+const { loadingStarsign } = storeToRefs(useUiStore());
 
 const LoadingPhrases = [
   " Seeking harmony in the celestial spheres",
@@ -30,7 +30,7 @@ const startInterval = () => {
 
 onMounted(startInterval);
 
-watch(pageLoader, (newVal) => {
+watch(LoadingPhrases, (newVal) => {
   if (newVal) {
     clearInterval(intervalId.value);
     currentIndex.value = 0;
@@ -42,7 +42,7 @@ watch(pageLoader, (newVal) => {
 <template>
   <div
     class="overlay absolute bg-[rgba(0,0,0,0.65)] z-50 w-full h-screen flex flex-col justify-center overflow-hidden top-0"
-    v-if="pageLoader"
+    v-if="loadingStarsign"
   >
     <div
       class="m-auto bg-black text-center p-24 w-[75vw] md:w-[45vw] rounded-2xl"

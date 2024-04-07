@@ -4,8 +4,10 @@
  * innit
  */
 import { useRoute } from "vue-router";
+import useUiStore from "~/store/ui";
 
 const route = useRoute();
+const nuxtApp = useNuxtApp();
 
 const { starsign } = route.params;
 const isLoading = ref(true);
@@ -53,6 +55,12 @@ const updateActiveIndex = (event: number) => {
     activeIndex.value = event;
   }
 };
+
+nuxtApp.hook("page:finish", () => {
+  if (useUiStore().$state.loadingStarsign == true) {
+    useUiStore().setLoadingStarsign(false);
+  }
+});
 </script>
 
 <template>

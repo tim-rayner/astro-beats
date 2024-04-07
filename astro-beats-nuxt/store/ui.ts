@@ -5,6 +5,7 @@ const useUiStore = defineStore("uiStore", {
     return {
       pageLoader: false,
       headerText: "AstroBeats",
+      loadingStarsign: false,
     };
   },
   actions: {
@@ -13,6 +14,9 @@ const useUiStore = defineStore("uiStore", {
     },
     setHeaderText(value: string) {
       this.headerText = value;
+    },
+    setLoadingStarsign(value: boolean) {
+      this.loadingStarsign = value;
     },
   },
 });
