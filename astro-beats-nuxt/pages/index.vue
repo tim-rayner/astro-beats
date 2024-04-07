@@ -6,20 +6,14 @@ const router = useRouter();
 
 <template>
   <HomeHero />
-  <div class="flex flex-wrap justify-center">
-    <Card
+  <div class="transition duration-300 ease-in-out">
+    <StarCard
       v-for="sign in StarSigns"
       :key="sign.id"
-      :class="sign.name.toLowerCase()"
       @click="router.push(`/${sign.name.toLowerCase()}`)"
       style="flex: 1 0 20em"
-      :icon="sign.img!"
-    >
-      <div class="m-auto">
-        <h1 class="text-5xl text-center mb-3">{{ sign.img }}</h1>
-        <h2 class="text-2xl text-center">{{ sign.name }}</h2>
-        <p class="text-center">{{ sign.description }}</p>
-      </div>
-    </Card>
+      :name="sign.name.charAt(0).toUpperCase() + sign.name.slice(1)"
+      :description="sign.description"
+    />
   </div>
 </template>
