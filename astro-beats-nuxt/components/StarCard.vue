@@ -85,13 +85,15 @@ const starSign = computed(() =>
       <div class="gradient z-0 absolute"></div>
 
       <div class="card__content z-30">
-        <h3 class="text-center text-white text-5xl">{{ name }}</h3>
+        <h3 class="text-center text-white text-5xl font-semibold">
+          {{ name }}
+        </h3>
         <img
           :src="starSign.img"
           alt="star sign"
           class="icon h-24 w-24 mx-auto my-6"
         />
-        <p class="text-center text-xl">{{ description }}</p>
+        <p class="text-center text-xl font-bold">{{ description }}</p>
       </div>
     </div>
   </div>
