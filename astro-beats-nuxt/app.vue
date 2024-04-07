@@ -10,6 +10,13 @@ useHead({
       content: "This is the homepage",
     },
   ],
+  script: [
+    {
+      async: true,
+      src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7323452179395649",
+      crossorigin: "anonymous",
+    },
+  ],
 });
 </script>
 
