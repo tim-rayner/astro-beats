@@ -93,7 +93,7 @@ const starSign = computed(() =>
           alt="star sign"
           class="icon h-24 w-24 mx-auto my-6"
         />
-        <p class="text-center text-xl font-bold">{{ description }}</p>
+        <p class="text-center font-bold">{{ description }}</p>
       </div>
     </div>
   </div>
