@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { Song } from "./getOpenResponse";
+import type { Song } from "@/types/song-types";
 
 export const convertSongsToSpotify = async (
   songs: Song[],

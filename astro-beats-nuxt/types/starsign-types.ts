@@ -1,4 +1,4 @@
-import type { Song } from "~/server/helpers/getOpenResponse";
+import type { Song } from "~/types/song-types";
 
 export type StarSign = {
   id: number;

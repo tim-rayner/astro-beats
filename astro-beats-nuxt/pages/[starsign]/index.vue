@@ -45,10 +45,6 @@ const { data: horoscope } = await useFetch(`/api/horoscope/${starsign}`).then(
   }
 );
 
-const redirectToSpotify = (url: string) => {
-  window.open(url, "_blank");
-};
-
 const updateActiveIndex = (event: number) => {
   if (viewportWidth.value > 767) {
     // replace 767 with the breakpoint you want
@@ -79,26 +75,11 @@ const updateActiveIndex = (event: number) => {
         :showIndicators="false"
       >
         <template #item="slotProps">
-          <div
-            class="my-6 shadow-lg bg-white rounded-lg text-[#161937] mx-0 md:mx-6"
-            :class="{ 'active-card': slotProps.index === activeIndex }"
-          >
-            <div class="flex flex-row">
-              <img :src="slotProps.data.img" :alt="slotProps.data.song" />
-            </div>
-            <div class="flex flex-col py-3 pl-6">
-              <h4 class="text-2xl">{{ slotProps.data.song }}</h4>
-              <p class="text-lg">{{ slotProps.data.artist }}</p>
-              <PrimeButton
-                label="Listen on Spotify"
-                class="w-fit bg-spotify-green"
-                @click="redirectToSpotify(slotProps.data.externalUrl)"
-              />
-              <div class="preview-wrapper">
-                <SpotifyPlaybackWidget :src="slotProps.data.previewUrl" />
-              </div>
-            </div>
-          </div>
+          <StarsignTrack
+            :track="slotProps.data"
+            :activeIndex="activeIndex"
+            :index="slotProps.index"
+          />
         </template>
       </PrimeCarousel>
 
