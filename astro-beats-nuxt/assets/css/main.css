@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css?family=Dosis:300,400,700,800");
+
 @layer tailwind-base, primevue, tailwind-utilities;
 
 @layer tailwind-base {
@@ -24,6 +26,7 @@
 #__nuxt {
   min-height: 100vh;
   color: #d1d1d1;
+  font-family: "Dosis", sans-serif !important;
 }
 
 .card {

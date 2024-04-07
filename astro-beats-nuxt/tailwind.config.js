@@ -15,7 +15,7 @@ export default {
         100: "#29325c",
         200: "#393865",
       },
-      background: "#212121",
+      background: "#24344c",
       "spotify-green": "#1db954",
       "spotify-dark": "#191414",
       "spotify-light": "#282828",

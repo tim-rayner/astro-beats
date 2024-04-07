@@ -5,10 +5,7 @@ const router = useRouter();
 </script>
 
 <template>
-  <h1 class="text-center text-5xl my-3">AstroBeats</h1>
-  <p class="text-center text-xl my-3">
-    Read your horoscope & listen to the stars 🎶✨
-  </p>
+  <HomeHero />
   <div class="flex flex-wrap justify-center">
     <Card
       v-for="sign in StarSigns"

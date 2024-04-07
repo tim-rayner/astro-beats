@@ -41,7 +41,7 @@ watch(pageLoader, (newVal) => {
 </script>
 <template>
   <div
-    class="overlay absolute bg-[rgba(0,0,0,0.65)] z-50 w-full h-screen flex flex-col justify-center overflow-hidden"
+    class="overlay absolute bg-[rgba(0,0,0,0.65)] z-50 w-full h-screen flex flex-col justify-center overflow-hidden top-0"
     v-if="pageLoader"
   >
     <div

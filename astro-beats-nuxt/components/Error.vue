@@ -1,15 +1,5 @@
 <script setup lang="ts">
 //@ts-nocheck
-import type { Container } from "@tsparticles/engine";
-import Particles from "@/assets/json/particles.json";
-
-const options = {
-  // See https://particles.js.org/docs/interfaces/tsParticles_Engine.Options_Interfaces_IOptions.IOptions.html
-  autoPlay: true,
-  detectRetina: true,
-};
-
-const onLoad = (container: Container) => {};
 
 interface Props {
   code: string;
@@ -32,12 +22,6 @@ const goBack = () => {
   <div
     class="permission_denied absolute top-0 bottom-0 left-0 right-0 z-40 h-[100vh]"
   >
-    <NuxtParticles
-      id="tsparticles"
-      :options="Particles"
-      @load="onLoad"
-    ></NuxtParticles>
-
     <div class="denied__wrapper">
       <h1>{{ code }}</h1>
       <h3>{{ message }}</h3>
@@ -353,8 +337,6 @@ const goBack = () => {
 </template>
 
 <style lang="scss" scoped>
-@import url("https://fonts.googleapis.com/css?family=Dosis:300,400,700,800");
-
 /** Styles for the 403 Page **/
 .st0 {
   fill: none;

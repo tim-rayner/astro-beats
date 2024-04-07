@@ -4,11 +4,15 @@ const useUiStore = defineStore("uiStore", {
   state: () => {
     return {
       pageLoader: false,
+      headerText: "AstroBeats",
     };
   },
   actions: {
     setPageLoader(value: boolean) {
       this.pageLoader = value;
+    },
+    setHeaderText(value: string) {
+      this.headerText = value;
     },
   },
 });
