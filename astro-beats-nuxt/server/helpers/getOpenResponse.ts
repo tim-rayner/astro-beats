@@ -18,28 +18,52 @@ export interface Song {
   previewUrl?: string;
 }
 
-function extractSongs(jsonString: string): Song[] {
-  const jsonArray = JSON.parse(jsonString) as {
-    song: string;
-    reason: string;
-    artist: string;
-  }[];
-  return jsonArray.map((item) => ({
-    song: item.song.trim(),
-    artist: item.artist.trim(),
-    reason: item.reason.trim(),
-  }));
+function extractSongs(jsonString: string) {
+  try {
+    const jsonArray = JSON.parse(jsonString) as {
+      song: string;
+      reason: string;
+      artist: string;
+    }[];
+    return jsonArray.map((item) => ({
+      song: item.song.trim(),
+      artist: item.artist.trim(),
+      reason: item.reason.trim(),
+    }));
+  } catch (error) {
+    // Implement your correction algorithm here
+    try {
+      // Append a '}' to the end of the string and try parsing it again
+      const correctedJsonString = jsonString + "}]";
+      const jsonArray = JSON.parse(correctedJsonString) as {
+        song: string;
+        reason: string;
+        artist: string;
+      }[];
+
+      return jsonArray.map((item) => ({
+        song: item.song.trim(),
+        artist: item.artist.trim(),
+        reason: item.reason.trim(),
+      }));
+    } catch (correctionError) {
+      console.error("Error parsing JSON string: ", correctionError);
+
+      return correctionError;
+    }
+  }
 }
 
 export const getOpenResponse = async (sign: string, reading: string) => {
   //submit the reading to the openai api
 
-  const promp = `The following is a horoscope reading for the star sign Aries. Please list me some songs from spotify which this reading can find some kind of relation within, striking resemblence, etc. here is the reading: ${reading}`;
+  const prompt = `The following is a horoscope reading for the star sign Aries. Please list me some songs from spotify which this reading can find some kind of relation within, striking resemblence, etc. here is the reading: ${reading}`;
 
   /**
    * @todo implement a catch which watches for when openai reaches its theshhold which can then be relayed
    * appropriately to the user.
    */
+
   const response = await openai.chat.completions
     .create({
       model: "gpt-3.5-turbo",
@@ -51,7 +75,7 @@ export const getOpenResponse = async (sign: string, reading: string) => {
         },
         {
           role: "user",
-          content: `Star sign: ${sign}\n  horoscope Reading: ${reading}`,
+          content: prompt,
         },
         {
           role: "assistant",
@@ -65,7 +89,13 @@ export const getOpenResponse = async (sign: string, reading: string) => {
       frequency_penalty: 0,
       presence_penalty: 0,
     })
-    .then((response) => response.choices[0].message.content);
+    .then((response) => response.choices[0].message.content)
+    .catch((err) => {
+      throw createError({
+        statusCode: err.response.status,
+        statusMessage: "Open AI Error: " + err.response.statusText,
+      });
+    });
 
   //DUMMY RESPONSE TO SAVE API CALLS WHILE TESTING
   // const response =

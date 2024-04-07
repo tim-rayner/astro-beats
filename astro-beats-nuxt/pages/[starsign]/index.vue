@@ -71,8 +71,7 @@ const updateActiveIndex = (event: number) => {
     <div class="songs-wrapper mx-auto max-w-full overflow-hidden">
       <PrimeCarousel
         :value="horoscope.songs"
-        :numVisible="3"
-        :numScroll="3"
+        :numScroll="1"
         :responsiveOptions="responsiveOptions"
         class="w-full"
         :circular="true"

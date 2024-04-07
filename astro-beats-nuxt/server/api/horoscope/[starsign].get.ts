@@ -1,6 +1,6 @@
 import axios from "axios";
-import { getOpenResponse } from "~/helpers/getOpenResponse";
-import { convertSongsToSpotify } from "~/helpers/getSpotifyResponse";
+import { getOpenResponse } from "~/server/helpers/getOpenResponse";
+import { convertSongsToSpotify } from "~/server/helpers/getSpotifyResponse";
 import { HoroscopeResponse } from "~/types/starsign-types";
 
 export default defineEventHandler(
@@ -39,6 +39,7 @@ export default defineEventHandler(
     );
 
     horoscopeWithSongData.songs = withSpotifyData;
+
     return horoscopeWithSongData;
   }
 );

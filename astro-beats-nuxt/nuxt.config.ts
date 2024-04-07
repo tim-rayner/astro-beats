@@ -16,6 +16,9 @@ export default defineNuxtConfig({
   particles: {
     lazy: false,
   },
+  build: {
+    transpile: ["@fortawesome/vue-fontawesome"],
+  },
   runtimeConfig: {
     // Keys within runtimeConfig are exposed client-side
     apiBase: "/api",
