@@ -1,0 +1,15 @@
+{
+  "name": "astro-beats-api",
+  "version": "0.1.0",
+  "description": "restful api to operate the astrobeats platform",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tim Rayner",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "uuid": "^9.0.1"
+  }
+}
