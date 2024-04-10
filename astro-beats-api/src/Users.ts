@@ -25,4 +25,4 @@ const users = [
  * this structure. To do this, append the following code to users.js:
  */
 
-module.exports = users;
+export default users;

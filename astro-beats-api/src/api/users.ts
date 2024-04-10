@@ -3,7 +3,7 @@
  * In this file, we need to create some logical routes. To start, again state that we require Express:
  */
 
-const express = require("express");
+import express, { Router, Request, Response } from "express";
 
 //define router
 const router = express.Router();
@@ -14,7 +14,7 @@ const router = express.Router();
  * need a way to generate unique IDs for each user entity.
  */
 
-const uuid = require("uuid");
+import * as uuid from "uuid";
 
 /**
  * @tutorial
@@ -22,15 +22,15 @@ const uuid = require("uuid");
  * We can use the following code to do so:
  */
 
-let users = require("../../Users.js");
-
+import Users from "../Users";
+let users = Users;
 /**
  * @tutorial
  * Now we can finally create our first endpoint. We’ll create a GET function to retrieve all user data.
  * We can do this using this code:
  */
 
-router.get("/", (req, res) => {
+router.get("/", (req: Request, res: Response) => {
   res.json(users);
   return res;
 });
@@ -41,7 +41,7 @@ router.get("/", (req, res) => {
  * We can use the following code to do so:
  */
 
-router.get("/:id", (req, res) => {
+router.get("/:id", (req: Request, res: Response) => {
   const found = users.some((user) => user.id === parseInt(req.params.id));
 
   if (found) {
@@ -55,7 +55,7 @@ router.get("/:id", (req, res) => {
 //CREATE
 router.post("/", (req, res) => {
   const newUser = {
-    id: uuid.v4(),
+    id: uuid.v4() as any,
     name: req.body.name,
     email: req.body.email,
   };
@@ -102,4 +102,4 @@ router.delete("/:id", (req, res) => {
  * With this route created, we can now export this for use by the API using the following code:
  */
 
-module.exports = router;
+export default router;

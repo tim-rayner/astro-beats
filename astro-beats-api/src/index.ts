@@ -1,7 +1,9 @@
 //https://www.moesif.com/blog/api-monetization/api-strategy/REST-API-with-node-.-js/
 
 //create service base with express
-const express = require("express");
+import express from "express";
+import users from "./api/users";
+
 const app = express();
 
 /**
@@ -14,7 +16,7 @@ const app = express();
 //register dependencies
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use("/api/users", require("./routes/api/users"));
+app.use("/api/users", users);
 
 /**
  * @tutorial
