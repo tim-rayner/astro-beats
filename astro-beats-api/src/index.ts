@@ -2,7 +2,11 @@
 
 //create service base with express
 import express from "express";
-import users from "./api/users";
+import cors from "cors";
+
+//routes
+import users from "./api/routes/users";
+import horoscopes from "./api/routes/horoscopes";
 
 const app = express();
 
@@ -14,9 +18,18 @@ const app = express();
  */
 
 //register dependencies
+app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use("/api/users", users);
+app.use("/api/horoscopes", horoscopes);
+/**
+ * This will allow CORS requests from any origin. If you want to restrict CORS requests to specific origins, you can pass an options
+ * object to the cors() function. For example: 
+ * app.use(cors({
+    origin: 'http://example.com'
+    }));
+ */
 
 /**
  * @tutorial
