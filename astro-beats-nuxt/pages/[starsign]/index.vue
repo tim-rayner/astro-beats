@@ -3,6 +3,7 @@
  * @TODO style this component so the songs are displayed extremely professionally, prehaps as a carousel
  * innit
  */
+import axios from "axios";
 import { useRoute } from "vue-router";
 import useUiStore from "~/store/ui";
 
@@ -15,6 +16,8 @@ const activeIndex = ref(0);
 const viewportWidth = ref(
   typeof window !== "undefined" ? window.innerWidth : 0
 );
+
+const spotifyClientAccessToken = useCookie("spotifyClientAccessToken");
 
 const responsiveOptions = ref([
   {
@@ -37,15 +40,25 @@ const responsiveOptions = ref([
     numVisible: 1,
     numScroll: 1,
   },
+  {
+    breakpoint: "100px",
+    numVisible: 1,
+    numScroll: 1,
+  },
 ]);
 
-// //GET TRACK DATA
-const { data: horoscope } = await useFetch(`/api/horoscope/${starsign}`).then(
-  (resp) => {
+// GET TRACK DATA
+
+console.log(spotifyClientAccessToken.value);
+const { data: horoscope } = await axios
+  .post(`http://localhost:3001/api/horoscopes/${starsign}`, {
+    spotifyClientAccessToken: spotifyClientAccessToken.value,
+  })
+  .then((resp) => {
     isLoading.value = false;
+    console.log(resp.data);
     return resp;
-  }
-);
+  });
 
 const updateActiveIndex = (event: number) => {
   if (viewportWidth.value > 767) {
