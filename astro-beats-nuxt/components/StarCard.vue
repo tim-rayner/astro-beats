@@ -132,24 +132,24 @@ const starSign = computed(() =>
 .card.aries .gradient {
   background-image: linear-gradient(
     -45deg,
-    hsla(4, 82%, 57%, 0.85),
-    hsl(252, 82, 57)
+    rgba(235, 67, 55, 0.85),
+    rgb(91, 55, 235)
   );
 }
 
 .card.taurus .gradient {
   background-image: linear-gradient(
     -45deg,
-    hsla(192, 100%, 49%, 0.85),
-    hsl(120, 100%, 50%)
+    rgba(0, 200, 250, 0.85),
+    rgb(140, 255, 140)
   );
 }
 
 .card.gemini .gradient {
   background-image: linear-gradient(
     -45deg,
-    hsla(44, 100%, 50%, 0.85),
-    hsl(59, 100%, 50%)
+    rgba(255, 187, 0, 0.85),
+    rgb(255, 251, 0)
   );
 }
 
@@ -157,24 +157,24 @@ const starSign = computed(() =>
   background: linear-gradient(-45deg, #c8c8c8 0%, #918e8e 100%);
   background-image: linear-gradient(
     -45deg,
-    hsla(146, 22%, 72%, 0.85),
-    hsl(256, 44%, 24%)
+    rgba(168, 199, 182, 0.85),
+    rgb(49, 34, 88)
   );
 }
 
 .card.leo .gradient {
   background-image: linear-gradient(
     -45deg,
-    hsla(29, 100%, 60%, 0.85),
-    hsl(56, 100%, 50%)
+    rgba(255, 150, 51, 0.85),
+    rgb(255, 238, 0)
   );
 }
 
 .card.virgo .gradient {
   background-image: linear-gradient(
     -45deg,
-    hsla(29, 87%, 18%, 0.85),
-    hsl(39, 69%, 57%)
+    rgba(86, 45, 6, 0.85),
+    rgb(221, 168, 70)
   );
 }
 
@@ -185,8 +185,8 @@ const starSign = computed(() =>
 .card.scorpio .gradient {
   background-image: linear-gradient(
     -45deg,
-    hsla(0, 0%, 3%, 0.85),
-    hsl(39, 16%, 53%)
+    rgba(8, 8, 8, 0.85),
+    rgb(154, 141, 116)
   );
 }
 

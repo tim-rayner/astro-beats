@@ -1,6 +1,7 @@
 import axios from "axios";
 
 import OpenAI from "openai";
+import { Song } from "~/types/song-types";
 
 /**
  * @todo move this to a .env file
@@ -39,16 +40,18 @@ function extractSongs(jsonString: string) {
       }));
     } catch (correctionError) {
       console.error("Error parsing JSON string: ", correctionError);
-
       return correctionError;
     }
   }
 }
 
-export const getOpenResponse = async (sign: string, reading: string) => {
+export const getOpenResponse = async (
+  sign: string,
+  reading: string
+): Promise<Song[]> => {
   //submit the reading to the openai api
 
-  const prompt = `The following is a horoscope reading for the star sign Aries. Please list me some songs from spotify which this reading can find some kind of relation within, striking resemblence, etc. here is the reading: ${reading}`;
+  const prompt = `The following is a horoscope reading for the star sign ${sign}. Please list me some songs from spotify which this reading can find some kind of relation within, striking resemblence, etc. here is the reading: ${reading}`;
 
   /**
    * @todo implement a catch which watches for when openai reaches its theshhold which can then be relayed
@@ -92,7 +95,7 @@ export const getOpenResponse = async (sign: string, reading: string) => {
   // const response =
   //   '[{"song": "Brave", "reason": "Encouraging Cancer to be more expressive about their feelings and not be afraid to speak their mind.", "artist": "Sara Bareilles"}, {"song": "Emotions", "reason": "Emphasizing the importance of incorporating instincts and emotions into reactions, rather than relying solely on the mind.", "artist": "Mariah Carey"}, {"song": "Listen to Your Heart", "reason": "Suggesting Cancer should listen to their heart and trust their emotions in unexpected situations.", "artist": "Roxette"}, {"song": "Thinking Out Loud", "reason": "Encouraging Cancer to be open about their feelings and not rely solely on their brain for answers.", "artist": "Ed Sheeran"}, {"song": "Unwritten", "reason": "Inspiring Cancer to embrace the uncertainty of unexpected situations and trust their instincts and emotions.", "artist": "Natasha Bedingfield"}]';
 
-  const songList = extractSongs(response!);
+  const songList = extractSongs(response!) as Song[];
 
   return songList;
 };

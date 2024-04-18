@@ -46,7 +46,7 @@ function extractSongs(jsonString: string) {
 export const getOpenResponse = async (sign: string, reading: string) => {
   //submit the reading to the openai api
 
-  const prompt = `The following is a horoscope reading for the star sign Aries. Please list me some songs from spotify which this reading can find some kind of relation within, striking resemblence, etc. here is the reading: ${reading}`;
+  const prompt = `The following is a horoscope reading for the star sign ${sign}. Please list me some songs from spotify which this reading can find some kind of relation within, striking resemblence, etc. here is the reading: ${reading}`;
 
   /**
    * @todo implement a catch which watches for when openai reaches its theshhold which can then be relayed
@@ -72,9 +72,8 @@ export const getOpenResponse = async (sign: string, reading: string) => {
             "Please list me some songs from spotify which this reading can find some kind of relation within, striking resemblence, etc. These songs should be related to the reading in some way. Pick from both older and newer songs and bring in the genres indie rock, rap, hiphop, and pop when possible. return the songs in a JSON array format with a field explaining why this song was chosen. there should be between 5-6 songs in the list. please return a raw json response, no need to format it. The JSON sould use the following format: [{song: 'song name', reason: 'reason for choosing this song', artist: 'artist name'}]. include in the explanation how the selected song resonates with the reading given. answers should be around 2 lines long",
         },
       ],
-      temperature: 0.8,
+      temperature: 0.2,
       max_tokens: 999,
-      top_p: 1,
       frequency_penalty: 0,
       presence_penalty: 0,
     })

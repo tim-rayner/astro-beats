@@ -8,14 +8,15 @@ const router = express.Router();
 router.post("/:starsign", async (req: Request, res: Response) => {
   const spotifyClientAccessToken = req.body.spotifyClientAccessToken;
   const sign = req.params.starsign;
-  console.log(req.body);
-  console.log({ spotifyClientAccessToken, sign });
+
   //handle if token or sign are undefined/null
-  if (!spotifyClientAccessToken || !sign) return res.sendStatus(400);
+  if (!spotifyClientAccessToken || !sign || sign === null)
+    return res.sendStatus(400);
 
   const url = `https://horoscope-app-api.vercel.app/api/v1/get-horoscope/daily?sign=${sign}&day=today`;
 
   try {
+    console.log("FETCHING HOROSCOPE FOR: ", sign);
     const { data: horoscope } = await axios.get(url);
 
     //handle if returned horoscope is undefined/null
@@ -41,7 +42,6 @@ router.post("/:starsign", async (req: Request, res: Response) => {
       songs: rawSongList,
     };
 
-    console.log({ rawSongList });
     const withSpotifyData = await convertSongsToSpotify(
       // @ts-ignore
       rawSongList,
@@ -52,7 +52,6 @@ router.post("/:starsign", async (req: Request, res: Response) => {
 
     return res.send(horoscopeWithTrackData);
   } catch (err) {
-    console.log(err);
     return res.sendStatus(500);
   }
 });

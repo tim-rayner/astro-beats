@@ -1,5 +1,4 @@
 import useUiStore from "~/store/ui";
-import { storeToRefs } from "pinia";
 
 export default defineNuxtRouteMiddleware(async (to, from) => {
   useUiStore().setPageLoader(true);
