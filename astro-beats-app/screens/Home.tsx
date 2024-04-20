@@ -1,50 +1,58 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, FlatList } from 'react-native';
+import React, { useCallback, useEffect, useState } from 'react';
+import { View, TouchableOpacity, FlatList } from 'react-native';
 
 //components
 import ColorPreview from '../components/tutorial/ColorPreview';
 
-const RAINBOW = [
-  { colorName: 'Red', hexCode: '#FF0000' },
-  { colorName: 'Orange', hexCode: '#FF7F00' },
-  { colorName: 'Yellow', hexCode: '#FFFF00' },
-  { colorName: 'Green', hexCode: '#00FF00' },
-  { colorName: 'Violet', hexCode: '#8B00FF' },
-];
-
-const FRONTEND_MASTERS = [
-  { colorName: 'Red', hexCode: '#c02d28' },
-  { colorName: 'Black', hexCode: '#3e3e3e' },
-  { colorName: 'Grey', hexCode: '#8a8a8a' },
-  { colorName: 'White', hexCode: '#ffffff' },
-  { colorName: 'Orange', hexCode: '#e66225' },
-];
-
 const Home = ({ navigation }: { navigation: any }) => {
+  const [colorPalettes, setColorPalettes] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const fetchColorPalettes = async () => {
+    const response = await fetch(
+      'https://color-palette-api.kadikraman.vercel.app/palettes',
+    );
+    if (response.ok) {
+      const palettes = await response.json();
+      setColorPalettes(palettes);
+    }
+  };
+
+  useEffect(() => {
+    fetchColorPalettes();
+  }, []);
+
+  const handleRefresh = useCallback(async () => {
+    setRefreshing(true);
+    await fetchColorPalettes();
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 1000);
+  }, []);
+
   return (
     <View>
-      <TouchableOpacity
-        style={{ marginVertical: 10 }}
-        onPress={() =>
-          navigation.navigate('ColorPalette', {
-            colors: RAINBOW,
-            title: 'Rainbow',
-          })
-        }
-      >
-        <ColorPreview colors={RAINBOW} title="Rainbow" />
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        onPress={() =>
-          navigation.navigate('ColorPalette', {
-            colors: FRONTEND_MASTERS,
-            title: 'Frontend Masters',
-          })
-        }
-      >
-        <ColorPreview colors={FRONTEND_MASTERS} title="Frontend Masters" />
-      </TouchableOpacity>
+      <FlatList
+        data={colorPalettes}
+        keyExtractor={(item: any) => item.paletteName}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate('ColorPalette', {
+                colors: item.colors,
+                title: item.paletteName,
+              })
+            }
+          >
+            <ColorPreview
+              colors={item.colors.slice(0, 5)}
+              title={item.paletteName}
+            />
+          </TouchableOpacity>
+        )}
+        refreshing={refreshing}
+        onRefresh={handleRefresh}
+      />
     </View>
   );
 };
