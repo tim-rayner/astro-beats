@@ -40,3 +40,5 @@ app.use("/api/horoscopes", horoscopes);
 app.listen(3001, () => console.log("Ready"));
 
 //head to http://localhost:3001/api/users to see the data
+
+export default app;
