@@ -6,17 +6,25 @@ import {
   FlatList,
   TouchableOpacity,
   StyleSheet,
+  Dimensions,
 } from 'react-native';
 
 import { NavigationProp } from '@react-navigation/native';
 import { StarSign } from '../types/starsign-types';
 
+//Lottie
+import Galaxy from '../assets/lottie/galaxy.json';
+
 //Constants
 import { StarSigns as starSignsData } from '../constants/starsign-constants';
+import LottieAnimation from '../components/atoms/LottieAnimation';
 
 type Props = {
   navigation: NavigationProp<any>;
 };
+
+var width = Dimensions.get('window').width; //full width
+var height = Dimensions.get('window').height; //full height
 
 const Home = ({ navigation }: Props) => {
   const [starSigns, setStarSigns] = useState<StarSign[]>([]);
@@ -59,7 +67,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     alignItems: 'center',
     justifyContent: 'center',
-
     flexDirection: 'row',
   },
 
@@ -70,6 +77,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+
+  lottie: {},
 
   image: {
     width: 200,
