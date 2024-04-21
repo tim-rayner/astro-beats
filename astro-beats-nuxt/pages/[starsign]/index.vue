@@ -3,18 +3,23 @@
  * @TODO style this component so the songs are displayed extremely professionally, prehaps as a carousel
  * innit
  */
+import axios from "axios";
 import { useRoute } from "vue-router";
 import useUiStore from "~/store/ui";
+import type { HoroscopeResponse } from "~/types/starsign-types";
 
 const route = useRoute();
 const nuxtApp = useNuxtApp();
 
 const { starsign } = route.params;
 const isLoading = ref(true);
+const horoscope = ref<HoroscopeResponse | null>(null);
 const activeIndex = ref(0);
 const viewportWidth = ref(
   typeof window !== "undefined" ? window.innerWidth : 0
 );
+
+const spotifyClientAccessToken = useCookie("spotifyClientAccessToken");
 
 const responsiveOptions = ref([
   {
@@ -37,15 +42,27 @@ const responsiveOptions = ref([
     numVisible: 1,
     numScroll: 1,
   },
+  {
+    breakpoint: "100px",
+    numVisible: 1,
+    numScroll: 1,
+  },
 ]);
 
-// //GET TRACK DATA
-const { data: horoscope } = await useFetch(`/api/horoscope/${starsign}`).then(
-  (resp) => {
-    isLoading.value = false;
-    return resp;
+// GET TRACK DATA
+
+onMounted(async () => {
+  const { data } = await axios.post(
+    `http://localhost:3001/api/horoscopes/${starsign}`,
+    {
+      spotifyClientAccessToken: spotifyClientAccessToken.value,
+    }
+  );
+  horoscope.value = data;
+  if (useUiStore().$state.loadingStarsign == true) {
+    useUiStore().setLoadingStarsign(false);
   }
-);
+});
 
 const updateActiveIndex = (event: number) => {
   if (viewportWidth.value > 767) {
@@ -55,12 +72,6 @@ const updateActiveIndex = (event: number) => {
     activeIndex.value = event;
   }
 };
-
-nuxtApp.hook("page:finish", () => {
-  if (useUiStore().$state.loadingStarsign == true) {
-    useUiStore().setLoadingStarsign(false);
-  }
-});
 </script>
 
 <template>
@@ -92,7 +103,7 @@ nuxtApp.hook("page:finish", () => {
 
       <div class="explanation">
         <p class="px-12 my-3 text-center text-lg">
-          {{ horoscope.songs[activeIndex].reason }}
+          {{ horoscope.songs[activeIndex]?.reason }}
         </p>
       </div>
     </div>

@@ -22,7 +22,7 @@ import * as uuid from "uuid";
  * We can use the following code to do so:
  */
 
-import Users from "../Users";
+import Users from "../../Users";
 let users = Users;
 /**
  * @tutorial

@@ -1,7 +1,4 @@
-import axios from "axios";
-
 import OpenAI from "openai";
-import { Song } from "~/types/song-types";
 
 /**
  * @todo move this to a .env file
@@ -40,15 +37,13 @@ function extractSongs(jsonString: string) {
       }));
     } catch (correctionError) {
       console.error("Error parsing JSON string: ", correctionError);
+
       return correctionError;
     }
   }
 }
 
-export const getOpenResponse = async (
-  sign: string,
-  reading: string
-): Promise<Song[]> => {
+export const getOpenResponse = async (sign: string, reading: string) => {
   //submit the reading to the openai api
 
   const prompt = `The following is a horoscope reading for the star sign ${sign}. Please list me some songs from spotify which this reading can find some kind of relation within, striking resemblence, etc. here is the reading: ${reading}`;
@@ -77,25 +72,25 @@ export const getOpenResponse = async (
             "Please list me some songs from spotify which this reading can find some kind of relation within, striking resemblence, etc. These songs should be related to the reading in some way. Pick from both older and newer songs and bring in the genres indie rock, rap, hiphop, and pop when possible. return the songs in a JSON array format with a field explaining why this song was chosen. there should be between 5-6 songs in the list. please return a raw json response, no need to format it. The JSON sould use the following format: [{song: 'song name', reason: 'reason for choosing this song', artist: 'artist name'}]. include in the explanation how the selected song resonates with the reading given. answers should be around 2 lines long",
         },
       ],
-      temperature: 0.8,
-      max_tokens: 356,
-      top_p: 1,
+      temperature: 0.2,
+      max_tokens: 999,
       frequency_penalty: 0,
       presence_penalty: 0,
     })
     .then((response) => response.choices[0].message.content)
     .catch((err) => {
-      throw createError({
-        statusCode: err.response.status,
-        statusMessage: "Open AI Error: " + err.response.statusText,
-      });
+      // throw createError({
+      //   statusCode: err.response.status,
+      //   statusMessage: "Open AI Error: " + err.response.statusText,
+      // });
+      console.error("Open AI Error: ", err);
     });
 
   //DUMMY RESPONSE TO SAVE API CALLS WHILE TESTING
   // const response =
   //   '[{"song": "Brave", "reason": "Encouraging Cancer to be more expressive about their feelings and not be afraid to speak their mind.", "artist": "Sara Bareilles"}, {"song": "Emotions", "reason": "Emphasizing the importance of incorporating instincts and emotions into reactions, rather than relying solely on the mind.", "artist": "Mariah Carey"}, {"song": "Listen to Your Heart", "reason": "Suggesting Cancer should listen to their heart and trust their emotions in unexpected situations.", "artist": "Roxette"}, {"song": "Thinking Out Loud", "reason": "Encouraging Cancer to be open about their feelings and not rely solely on their brain for answers.", "artist": "Ed Sheeran"}, {"song": "Unwritten", "reason": "Inspiring Cancer to embrace the uncertainty of unexpected situations and trust their instincts and emotions.", "artist": "Natasha Bedingfield"}]';
 
-  const songList = extractSongs(response!) as Song[];
+  const songList = extractSongs(response!);
 
   return songList;
 };

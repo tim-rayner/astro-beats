@@ -9,6 +9,7 @@ export default defineEventHandler(
     const sign = getRouterParam(event, "starsign");
     const { spotifyClientAccessToken } = parseCookies(event);
 
+    console.log("FETCHING HOROSCOPE FOR: ", sign);
     const url = `https://horoscope-app-api.vercel.app/api/v1/get-horoscope/daily?sign=${sign}&day=today`;
 
     const { data: horoscope } = await axios.get(url);
