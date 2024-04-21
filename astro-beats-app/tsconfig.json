@@ -2,5 +2,18 @@
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
     "strict": true
-  }
+  },
+  "plugins": [
+    "expo-build-properties",
+    {
+      "android": {
+        "usesCleartextTraffic": true // ? enable HTTP requests
+      },
+      "ios": {
+        "infoPlist": {
+          "NSAppTransportSecurity": { "NSAllowsArbitraryLoads": true } // ? enable HTTP requests
+        }
+      }
+    }
+  ]
 }

@@ -12,19 +12,12 @@ import {
 import { NavigationProp } from '@react-navigation/native';
 import { StarSign } from '../types/starsign-types';
 
-//Lottie
-import Galaxy from '../assets/lottie/galaxy.json';
-
 //Constants
 import { StarSigns as starSignsData } from '../constants/starsign-constants';
-import LottieAnimation from '../components/atoms/LottieAnimation';
 
 type Props = {
   navigation: NavigationProp<any>;
 };
-
-var width = Dimensions.get('window').width; //full width
-var height = Dimensions.get('window').height; //full height
 
 const Home = ({ navigation }: Props) => {
   const [starSigns, setStarSigns] = useState<StarSign[]>([]);
