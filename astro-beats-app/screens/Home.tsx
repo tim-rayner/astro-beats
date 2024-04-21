@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { View, TouchableOpacity, FlatList } from 'react-native';
+import { View, TouchableOpacity, FlatList, Text } from 'react-native';
 
 //components
 import ColorPreview from '../components/tutorial/ColorPreview';
@@ -52,6 +52,13 @@ const Home = ({ navigation }: { navigation: any }) => {
         )}
         refreshing={refreshing}
         onRefresh={handleRefresh}
+        ListHeaderComponent={
+          <TouchableOpacity
+            onPress={() => navigation.navigate('ColorPaletteModal')}
+          >
+            <Text> Add new</Text>
+          </TouchableOpacity>
+        }
       />
     </View>
   );
