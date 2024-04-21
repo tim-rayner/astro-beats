@@ -53,7 +53,7 @@ const responsiveOptions = ref([
 
 onMounted(async () => {
   const { data } = await axios.post(
-    `http://localhost:3001/api/horoscopes/${starsign}`,
+    `https://astro-beats-api.vercel.app/api/horoscopes/${starsign}`,
     {
       spotifyClientAccessToken: spotifyClientAccessToken.value,
     }
