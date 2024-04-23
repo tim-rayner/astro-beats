@@ -7,8 +7,8 @@ import { StyleSheet } from 'react-native';
 //Components
 
 //Screens
-import HomeScreen from './screens/HomeScreen';
-import StarSignScreen from './screens/StarSignScreen';
+import HomeScreen from './app';
+import StarSignScreen from './app/starSign/[starSign]';
 
 const RootStack = createStackNavigator();
 const MainStack = createStackNavigator();
@@ -21,11 +21,7 @@ const MainStackScreen = () => {
         component={HomeScreen}
         options={{ title: 'AstroBeats' }}
       />
-      <MainStack.Screen
-        name="StarSign"
-        component={StarSignScreen}
-        options={({ route }) => ({ title: route.params?.starSign })}
-      />
+      <MainStack.Screen name="StarSign" component={StarSignScreen} />
     </MainStack.Navigator>
   );
 };

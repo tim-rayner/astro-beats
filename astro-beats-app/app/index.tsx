@@ -1,25 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import {
-  View,
-  Text,
-  Image,
-  FlatList,
-  TouchableOpacity,
-  StyleSheet,
-  Dimensions,
-} from 'react-native';
+import { View, Text, Image, FlatList, StyleSheet } from 'react-native';
 
-import { NavigationProp } from '@react-navigation/native';
 import { StarSign } from '../types/starsign-types';
 
 //Constants
 import { StarSigns as starSignsData } from '../constants/starsign-constants';
+import { Link } from 'expo-router';
 
-type Props = {
-  navigation: NavigationProp<any>;
-};
-
-const Home = ({ navigation }: Props) => {
+const Home = () => {
   const [starSigns, setStarSigns] = useState<StarSign[]>([]);
 
   useEffect(() => {
@@ -36,18 +24,18 @@ const Home = ({ navigation }: Props) => {
         data={starSigns}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
-          <TouchableOpacity
-            style={styles.starSignItem}
-            onPress={() =>
-              navigation.navigate('StarSign', {
-                starSign: item.name,
-              })
-            }
+          <Link
+            href={{
+              pathname: '/starSign/[starSign]',
+              params: { starSign: item.name },
+            }}
           >
-            <Image source={item.img} style={styles.image} />
-            <Text>{item.name}</Text>
-            <Text>{item.description}</Text>
-          </TouchableOpacity>
+            <View>
+              <Image source={item.img} style={styles.image} />
+              <Text>{item.name}</Text>
+              <Text>{item.description}</Text>
+            </View>
+          </Link>
         )}
       />
     </View>
@@ -59,8 +47,6 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     marginBottom: 10,
     alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
   },
 
   starSignItem: {
@@ -70,8 +56,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-
-  lottie: {},
 
   image: {
     width: 200,

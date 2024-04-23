@@ -3,25 +3,17 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Text } from 'react-native';
 
-import { RouteProp } from '@react-navigation/native';
-import { starSignApi } from '../api/starSign';
+import { starSignApi } from '../../api/starSign';
+import { useLocalSearchParams } from 'expo-router';
 
-type RootStackParamList = {
-  StarSign: { starSign: string };
-};
-
-type StarSignScreenRouteProp = RouteProp<RootStackParamList, 'StarSign'>;
-
-type Props = {
-  route: StarSignScreenRouteProp;
-};
-
-const StarSignScreen = ({ route }: Props) => {
+const StarSignScreen = () => {
   const [horoscope, setHoroscope] = useState();
+
+  const { starSign } = useLocalSearchParams();
 
   const fetchHoroscope = useCallback(async () => {
     await starSignApi
-      .post(route.params.starSign, 'spotifyClientAccessToken')
+      .post(starSign, 'spotifyClientAccessToken')
       .then((response) => {
         console.warn('response', response);
         setHoroscope(response);
@@ -33,11 +25,11 @@ const StarSignScreen = ({ route }: Props) => {
 
   useEffect(() => {
     fetchHoroscope();
-  }, [route.params.starSign]);
+  }, [starSign]);
 
   return (
     <SafeAreaView>
-      <Text>Star Sign Screen for {route.params.starSign}</Text>
+      <Text>Star Sign Screen for {starSign}</Text>
     </SafeAreaView>
   );
 };
