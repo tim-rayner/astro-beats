@@ -66,6 +66,7 @@ const Home = () => {
      */
     const expiry = resposne.data.expires_in;
 
+    console.log('token: ', accessToken);
     //store the token
     secureAuthStore.setTokenAsync(accessToken);
   }, []);

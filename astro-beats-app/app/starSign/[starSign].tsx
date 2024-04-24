@@ -82,16 +82,18 @@ const StarSignScreen = () => {
     fetchAuthToken().then((token) => {
       if (token) setSpotifyClientAccessToken(token);
     });
-
-    console.log('spotifyClientAccessToken', spotifyClientAccessToken);
-    console.log('starSign', starSign);
-    if (spotifyClientAccessToken && starSign) fetchHoroscope();
-    else setError(true);
   }, [starSign]);
+
+  useEffect(() => {
+    if (spotifyClientAccessToken !== undefined && starSign !== undefined)
+      fetchHoroscope();
+  }, [spotifyClientAccessToken]);
 
   return (
     <SafeAreaView>
-      <Text>Star Sign Screen for {starSign}</Text>
+      <Text>
+        Star Sign Screen for {starSign} | {spotifyClientAccessToken}
+      </Text>
       {loadingHoroScope && <LoadingHoroscope />}
       {horoscope && <Horoscope horoscope={horoscope} />}
       {error && <Error />}
