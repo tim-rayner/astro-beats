@@ -7,6 +7,7 @@ import cors from "cors";
 //routes
 import users from "./api/routes/users";
 import horoscopes from "./api/routes/horoscopes";
+import horoscopesV2 from "./api/routes/horoscopesV2";
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/api/users", users);
 app.use("/api/horoscopes", horoscopes);
+app.use("/api/horoscopes/v2", horoscopesV2);
 /**
  * This will allow CORS requests from any origin. If you want to restrict CORS requests to specific origins, you can pass an options
  * object to the cors() function. For example: 
