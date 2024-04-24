@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Text } from 'react-native';
+import { ScrollView, Text } from 'react-native';
 
 import { starSignApi } from '../../api/starSign';
 import { useLocalSearchParams } from 'expo-router';
@@ -26,7 +26,20 @@ const LoadingSongs = () => {
 const Horoscope = ({ horoscope }: any) => {
   return (
     <SafeAreaView>
-      <Text>{JSON.stringify(horoscope)}</Text>
+      <ScrollView>
+        <Text>{JSON.stringify(horoscope)}</Text>
+      </ScrollView>
+    </SafeAreaView>
+  );
+};
+
+const Error = () => {
+  return (
+    <SafeAreaView>
+      <Text>
+        Ooops something went wrong whilst fetching your Horoscope, please try
+        again
+      </Text>
     </SafeAreaView>
   );
 };
@@ -36,6 +49,7 @@ const StarSignScreen = () => {
   const [spotifyClientAccessToken, setSpotifyClientAccessToken] =
     useState<String>();
 
+  const [error, setError] = useState<boolean>(false);
   const [loadingHoroScope, setLoadingHoroscope] = useState<boolean>(false);
 
   const { starSign } = useLocalSearchParams();
@@ -56,21 +70,23 @@ const StarSignScreen = () => {
           date: response.date,
           songs: response.songs,
         });
-        console.log('horoscope', horoscope);
       })
       .catch((error) => {
         console.warn('error', error);
+        setError(true);
       });
     setLoadingHoroscope(false);
   }, []);
 
   useEffect(() => {
-    setLoadingHoroscope(true);
     fetchAuthToken().then((token) => {
       if (token) setSpotifyClientAccessToken(token);
     });
 
+    console.log('spotifyClientAccessToken', spotifyClientAccessToken);
+    console.log('starSign', starSign);
     if (spotifyClientAccessToken && starSign) fetchHoroscope();
+    else setError(true);
   }, [starSign]);
 
   return (
@@ -78,6 +94,7 @@ const StarSignScreen = () => {
       <Text>Star Sign Screen for {starSign}</Text>
       {loadingHoroScope && <LoadingHoroscope />}
       {horoscope && <Horoscope horoscope={horoscope} />}
+      {error && <Error />}
     </SafeAreaView>
   );
 };
