@@ -46,8 +46,6 @@ const Error = () => {
 
 const StarSignScreen = () => {
   const [horoscope, setHoroscope] = useState<any>();
-  const [spotifyClientAccessToken, setSpotifyClientAccessToken] =
-    useState<String>();
 
   const [error, setError] = useState<boolean>(false);
   const [loadingHoroScope, setLoadingHoroscope] = useState<boolean>(false);
@@ -56,14 +54,16 @@ const StarSignScreen = () => {
 
   const fetchAuthToken = useCallback(async () => {
     const token = await secureAuthStore.getTokenAsync();
-    return token;
+    if (token) {
+      fetchHoroscope(token);
+    }
   }, []);
 
-  const fetchHoroscope = useCallback(async () => {
+  const fetchHoroscope = useCallback(async (token) => {
     setLoadingHoroscope(true);
     await starSignApi
       // @ts-ignore
-      .post(starSign, spotifyClientAccessToken)
+      .post(starSign, token)
       .then((response) => {
         setHoroscope({
           horoscope: response.horoscopeReading,
@@ -79,21 +79,12 @@ const StarSignScreen = () => {
   }, []);
 
   useEffect(() => {
-    fetchAuthToken().then((token) => {
-      if (token) setSpotifyClientAccessToken(token);
-    });
-  }, [starSign]);
-
-  useEffect(() => {
-    if (spotifyClientAccessToken !== undefined && starSign !== undefined)
-      fetchHoroscope();
-  }, [spotifyClientAccessToken]);
+    fetchAuthToken();
+  }, []);
 
   return (
     <SafeAreaView>
-      <Text>
-        Star Sign Screen for {starSign} | {spotifyClientAccessToken}
-      </Text>
+      <Text>Star Sign Screen for {starSign}</Text>
       {loadingHoroScope && <LoadingHoroscope />}
       {horoscope && <Horoscope horoscope={horoscope} />}
       {error && <Error />}
