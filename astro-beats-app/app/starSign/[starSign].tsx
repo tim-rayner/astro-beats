@@ -46,40 +46,76 @@ const Error = () => {
 
 const StarSignScreen = () => {
   const [horoscope, setHoroscope] = useState<any>();
+  const [songs, setSongs] = useState<any>();
+
+  const [spotifyToken, setSpotifyToken] = useState<any>();
 
   const [error, setError] = useState<boolean>(false);
   const [loadingHoroScope, setLoadingHoroscope] = useState<boolean>(false);
+  const [loadingSongs, setLoadingSongs] = useState<boolean>(false);
 
   const { starSign } = useLocalSearchParams();
+
+  //get token from secure store, then get horoscope, then get songs
+  const fetchStarSignData = useCallback(async () => {
+    try {
+      const token = await fetchAuthToken();
+      const horoscopeData = await fetchHoroscope();
+      console.log('horoscopeData', horoscopeData);
+      await fetchSongs(token, horoscopeData.horoscope);
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
 
   const fetchAuthToken = useCallback(async () => {
     const token = await secureAuthStore.getTokenAsync();
     if (token) {
-      fetchHoroscope(token);
+      setSpotifyToken(token);
     }
+    return token;
   }, []);
 
-  const fetchHoroscope = useCallback(async (token) => {
+  const fetchHoroscope = useCallback(async () => {
     setLoadingHoroscope(true);
-    await starSignApi
+    const resp = await starSignApi
       // @ts-ignore
-      .post(starSign, token)
+      .getHoroscope(starSign)
       .then((response) => {
-        setHoroscope({
+        const horoscope = {
           horoscope: response.horoscopeReading,
           date: response.date,
-          songs: response.songs,
-        });
+        };
+
+        setHoroscope(horoscope);
+        return horoscope;
       })
       .catch((error) => {
         console.warn('error', error);
         setError(true);
       });
     setLoadingHoroscope(false);
+    return resp;
+  }, []);
+
+  const fetchSongs = useCallback(async (token, reading) => {
+    setLoadingSongs(true);
+    await starSignApi
+      // @ts-ignore
+      .getSongs(starSign, token, reading)
+      .then((response) => {
+        console.log('response', response);
+        setSongs(response);
+      })
+      .catch((error) => {
+        console.warn('error', error);
+        setError(true);
+      });
+    setLoadingSongs(false);
   }, []);
 
   useEffect(() => {
-    fetchAuthToken();
+    fetchStarSignData();
   }, []);
 
   return (
@@ -87,6 +123,8 @@ const StarSignScreen = () => {
       <Text>Star Sign Screen for {starSign}</Text>
       {loadingHoroScope && <LoadingHoroscope />}
       {horoscope && <Horoscope horoscope={horoscope} />}
+      {loadingSongs && <LoadingSongs />}
+      {songs && <Text>{JSON.stringify(songs)}</Text>}
       {error && <Error />}
     </SafeAreaView>
   );
