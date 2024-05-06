@@ -22,7 +22,8 @@
     "pinia": "^2.1.7",
     "primevue": "^3.50.0",
     "vue": "^3.4.21",
-    "vue-router": "^4.3.0"
+    "vue-router": "^4.3.0",
+    "vue3-lottie": "^3.3.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.19",

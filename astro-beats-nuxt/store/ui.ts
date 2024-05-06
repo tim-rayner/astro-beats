@@ -4,7 +4,7 @@ const useUiStore = defineStore("uiStore", {
   state: () => {
     return {
       pageLoader: false,
-      headerText: "AstroBeats",
+      headerText: "LunaTunes",
       loadingStarsign: false,
     };
   },

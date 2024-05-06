@@ -11,5 +11,8 @@ export type HoroscopeResponse = {
   date: string;
   horoscopeReading: string;
   name: string;
+};
+
+export type SongResponse = {
   songs: Song[];
 };

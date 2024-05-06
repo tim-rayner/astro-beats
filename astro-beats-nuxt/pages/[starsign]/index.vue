@@ -1,20 +1,13 @@
 <script setup lang="ts">
-/**
- * @TODO style this component so the songs are displayed extremely professionally, prehaps as a carousel
- * innit
- */
-import axios from "axios";
 import { useRoute } from "vue-router";
-import useUiStore from "~/store/ui";
-import type { HoroscopeResponse } from "~/types/starsign-types";
+import type { HoroscopeResponse, SongResponse } from "~/types/starsign-types";
 
 const route = useRoute();
-const nuxtApp = useNuxtApp();
 
-const { starsign } = route.params;
-const isLoading = ref(true);
-const horoscope = ref<HoroscopeResponse | null>(null);
+const { starsign: starSign } = route.params;
+
 const activeIndex = ref(0);
+
 const viewportWidth = ref(
   typeof window !== "undefined" ? window.innerWidth : 0
 );
@@ -49,20 +42,103 @@ const responsiveOptions = ref([
   },
 ]);
 
-// GET TRACK DATA
+const horoscopeLoading = ref(true);
+const songsLoading = ref(true);
 
+const horoscopeData = ref<HoroscopeResponse | null>(null);
+const songData = ref<SongResponse | null>(null);
+const apiError = ref<any>(null);
+
+/**
+ * @todo load the horoscope data from the api using v2 endpoint, display the loading spinner whilst loading
+ * @todo load the song data from the api using v2 endpoint, display the loading spinner whilst loading
+ */
+
+// GET TRACK DATA
 onMounted(async () => {
-  const { data } = await axios.post(
-    `https://astro-beats-api.vercel.app/api/horoscopes/${starsign}`,
-    {
-      spotifyClientAccessToken: spotifyClientAccessToken.value,
-    }
-  );
-  horoscope.value = data;
-  if (useUiStore().$state.loadingStarsign == true) {
-    useUiStore().setLoadingStarsign(false);
+  try {
+    const horoscope_data = await getHoroscope();
+    horoscopeData.value = horoscope_data;
+    horoscopeLoading.value = false;
+
+    const songs_data = await getSongs(
+      String(starSign),
+      spotifyClientAccessToken.value,
+      horoscope_data.horoscopeReading
+    );
+    songData.value = songs_data;
+    songsLoading.value = false;
+  } catch (error) {
+    console.error(error);
+    apiError.value = error;
   }
 });
+
+/**
+ * @todo segregate api calls into their own helper class
+ */
+const getHoroscope = async () => {
+  const response = await fetch(
+    `https://astro-beats-api.vercel.app/api/horoscopes/V2/reading/${starSign}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      // body: JSON.stringify({
+      //   spotifyClientAccessToken: spotifyClientAccessToken,
+      // }),
+    }
+  );
+  if (!response.ok) {
+    console.error("HTTP error", response.status);
+    return new Error("HTTP error");
+  }
+
+  if (response.status === 404) {
+    console.error("404 error", response.status);
+    return new Error("404 error");
+  }
+
+  const data = await response.json();
+
+  return data;
+};
+
+const getSongs = async (
+  starSign: string,
+  spotifyClientAccessToken: any,
+  horoscopeReading: string
+) => {
+  const response = await fetch(
+    `https://astro-beats-api.vercel.app/api/horoscopes/V2/songs/${starSign}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        spotifyClientAccessToken: spotifyClientAccessToken,
+        horoscopeReading: horoscopeReading,
+      }),
+    }
+  );
+
+  if (!response.ok) {
+    console.error("HTTP error", response.status);
+    return new Error("HTTP error");
+  }
+
+  if (response.status === 404) {
+    console.error("404 error", response.status);
+    return new Error("404 error");
+  }
+
+  const data = await response.json();
+  // console.warn('response', data);
+
+  return data;
+};
 
 const updateActiveIndex = (event: number) => {
   if (viewportWidth.value > 767) {
@@ -75,17 +151,20 @@ const updateActiveIndex = (event: number) => {
 </script>
 
 <template>
-  <div class="flex flex-col" v-if="horoscope">
+  <div class="flex flex-col" v-if="horoscopeData">
     <div class="header">
-      <h4 class="text-center">{{ horoscope.date }}</h4>
+      <h4 class="text-center">{{ horoscopeData.date }}</h4>
       <p class="px-12 my-3 text-center text-lg">
-        {{ horoscope.horoscopeReading }}
+        {{ horoscopeData.horoscopeReading }}
       </p>
     </div>
 
-    <div class="songs-wrapper mx-auto max-w-full overflow-hidden">
+    <div
+      class="songs-wrapper mx-auto max-w-full overflow-hidden"
+      v-if="songData"
+    >
       <PrimeCarousel
-        :value="horoscope.songs"
+        :value="songData"
         :responsiveOptions="responsiveOptions"
         class="w-full"
         :circular="true"
@@ -103,18 +182,19 @@ const updateActiveIndex = (event: number) => {
 
       <div class="explanation">
         <p class="px-12 my-3 text-center text-lg">
-          {{ horoscope.songs[activeIndex]?.reason }}
+          {{ songData[activeIndex]?.reason }}
         </p>
       </div>
     </div>
   </div>
 
-  <div v-else-if="isLoading">
-    <p class="px-24 my-3">Loading...</p>
-  </div>
-
-  <div v-else>
+  <div>
+    <div>
+      <LoadersReadingLoader v-if="horoscopeLoading" />
+      <LoadersSongLoader v-if="songsLoading" />
+    </div>
     <Error
+      v-if="apiError"
       code="500"
       message="We ran into a problem whilst trying to load your horoscope"
     />
