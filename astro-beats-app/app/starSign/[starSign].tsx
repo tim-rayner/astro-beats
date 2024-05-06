@@ -1,27 +1,16 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { ScrollView, Text } from 'react-native';
+import { ScrollView, Text, StyleSheet } from 'react-native';
 
 import { starSignApi } from '../../api/starSign';
 import { useLocalSearchParams } from 'expo-router';
+import { dummySongs } from 'assets/temp-data/dummy-songs';
 import * as secureAuthStore from '../../services/auth/secure-store';
+import Heading from 'components/atoms/Heading';
 
-const LoadingHoroscope = () => {
-  return (
-    <SafeAreaView>
-      <Text>Loading horoscope...</Text>
-    </SafeAreaView>
-  );
-};
-
-const LoadingSongs = () => {
-  return (
-    <SafeAreaView>
-      <Text>Loading songs...</Text>
-    </SafeAreaView>
-  );
-};
+import LoadingHoroscope from 'components/molecules/LoadingHoroscope';
+import LoadingSongs from 'components/molecules/LoadingSongs';
 
 const Horoscope = ({ horoscope }: any) => {
   return (
@@ -61,7 +50,6 @@ const StarSignScreen = () => {
     try {
       const token = await fetchAuthToken();
       const horoscopeData = await fetchHoroscope();
-      console.log('horoscopeData', horoscopeData);
       await fetchSongs(token, horoscopeData.horoscope);
     } catch (error) {
       console.error(error);
@@ -104,13 +92,13 @@ const StarSignScreen = () => {
       // @ts-ignore
       .getSongs(starSign, token, reading)
       .then((response) => {
-        console.log('response', response);
         setSongs(response);
       })
       .catch((error) => {
         console.warn('error', error);
         setError(true);
       });
+
     setLoadingSongs(false);
   }, []);
 
@@ -119,15 +107,25 @@ const StarSignScreen = () => {
   }, []);
 
   return (
-    <SafeAreaView>
+    <ScrollView style={styles.container}>
+      <Heading size="h1">{String(starSign)}</Heading>
       <Text>Star Sign Screen for {starSign}</Text>
       {loadingHoroScope && <LoadingHoroscope />}
       {horoscope && <Horoscope horoscope={horoscope} />}
       {loadingSongs && <LoadingSongs />}
       {songs && <Text>{JSON.stringify(songs)}</Text>}
       {error && <Error />}
-    </SafeAreaView>
+    </ScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    position: 'relative',
+    flex: 1,
+    borderColor: 'green',
+    borderWidth: 1,
+  },
+});
 
 export default StarSignScreen;
