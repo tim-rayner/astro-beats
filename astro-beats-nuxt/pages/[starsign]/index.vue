@@ -185,7 +185,6 @@ const updateActiveIndex = (event: number) => {
 
   <div>
     <div>
-      <!-- <LoadersReadingLoader v-if="horoscopeLoading" /> -->
       <LoadersSongLoader v-if="songsLoading" />
     </div>
     <Error
