@@ -49,11 +49,6 @@ const horoscopeData = ref<HoroscopeResponse | null>(null);
 const songData = ref<SongResponse | null>(null);
 const apiError = ref<any>(null);
 
-/**
- * @todo load the horoscope data from the api using v2 endpoint, display the loading spinner whilst loading
- * @todo load the song data from the api using v2 endpoint, display the loading spinner whilst loading
- */
-
 // GET TRACK DATA
 onMounted(async () => {
   try {
@@ -75,7 +70,7 @@ onMounted(async () => {
 });
 
 /**
- * @todo segregate api calls into their own helper class
+ * @todo segregate api calls into their own helper class, or repository pattern
  */
 const getHoroscope = async () => {
   const response = await fetch(
@@ -152,9 +147,9 @@ const updateActiveIndex = (event: number) => {
 
 <template>
   <div class="flex flex-col" v-if="horoscopeData">
-    <div class="header">
-      <h4 class="text-center">{{ horoscopeData.date }}</h4>
-      <p class="px-12 my-3 text-center text-lg">
+    <div class="header px-12 md:px-44 xl:px-[20vw]">
+      <h4 class="text-center text-xl font-bold">{{ horoscopeData.date }}</h4>
+      <p class="my-3 text-center text-2xl">
         {{ horoscopeData.horoscopeReading }}
       </p>
     </div>
@@ -181,7 +176,7 @@ const updateActiveIndex = (event: number) => {
       </PrimeCarousel>
 
       <div class="explanation">
-        <p class="px-12 my-3 text-center text-lg">
+        <p class="px-12 my-3 text-center text-2xl text-[#ffff]">
           {{ songData[activeIndex]?.reason }}
         </p>
       </div>
@@ -190,7 +185,7 @@ const updateActiveIndex = (event: number) => {
 
   <div>
     <div>
-      <LoadersReadingLoader v-if="horoscopeLoading" />
+      <!-- <LoadersReadingLoader v-if="horoscopeLoading" /> -->
       <LoadersSongLoader v-if="songsLoading" />
     </div>
     <Error

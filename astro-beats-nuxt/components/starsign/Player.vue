@@ -55,6 +55,12 @@ onBeforeUnmount(() => {
     audio.value.currentTime = 0;
   }
 });
+
+//truncate artist name if it's too long
+const artist = computed(() => {
+  const artist = track.artist;
+  return artist.length > 17 ? artist.substring(0, 17) + "..." : artist;
+});
 </script>
 
 <template>
@@ -62,19 +68,16 @@ onBeforeUnmount(() => {
     class="w-full mx-auto bg-white shadow-md rounded-lg rounded-t-none overflow-hidden dark:bg-zinc-900"
     v-if="track"
   >
-    <div class="flex justify-between items-center px-3 py-4">
+    <div class="flex justify-between items-center px-2 py-4">
       <div class="flex items-center">
-        <font-awesome-icon
-          icon="fa-music"
-          class="text-xl cursor-pointer"
-          @click="toggleAudio"
-        />
-        <div class="mx-3 h-15">
-          <h3 class="text-lg font-medium text-gray-700 dark:text-gray-200">
+        <div class="mx-2 h-15">
+          <h3
+            class="text-sm xl:text-xl font-medium text-gray-700 dark:text-gray-200 !text-[#000]"
+          >
             {{ track.song }}
           </h3>
-          <p class="text-gray-500 dark:text-gray-400 text-sm">
-            {{ track.artist }}
+          <p class="text-gray-500 dark:text-gray-400 text-sm xl:text-lg">
+            {{ artist }}
           </p>
         </div>
       </div>

@@ -18,22 +18,3 @@ const router = useRouter();
     />
   </div>
 </template>
-
-<style scoped>
-/* @keyframes bob {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-  100% {
-    transform: translateY(0);
-  }
-}
-
-.bob-animation {
-  animation: bob 2s ease-in-out infinite;
-  animation-delay: calc(0.3s * var(--i));
-} */
-</style>

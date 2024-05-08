@@ -2,17 +2,27 @@
 import useUiStore from "~/store/ui";
 import { storeToRefs } from "pinia";
 
-const { headerText } = storeToRefs(useUiStore());
+const { headerText, currentPath } = storeToRefs(useUiStore());
+
+const isHome = computed(() => currentPath.value === "/");
 </script>
 
 <template>
   <nav class="navbar w-full">
     <div class="flex flex-container p-3">
-      <div class="flex-1"></div>
+      <div class="flex-1">
+        <router-link
+          to="/"
+          class="navbar-item flex items-center h-full"
+          v-if="!isHome"
+        >
+          <font-awesome-icon icon="fas fa-home" class="text-2xl" />
+        </router-link>
+      </div>
 
       <div class="flex-1 text-center">
         <router-link to="/" class="navbar-item">
-          <span class="text-5xl font-bold"> {{ headerText }} </span>
+          <h1 class="text-5xl font-bold">{{ headerText }}</h1>
         </router-link>
       </div>
       <div class="flex-1 text-right">

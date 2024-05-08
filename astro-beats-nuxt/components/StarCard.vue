@@ -77,7 +77,7 @@ const starSign = computed(() =>
 
 <template>
   <div
-    class="card relative transition duration-300 ease-in-out cursor-pointer m-3 bg-[#6af8fd] rounded-full h-72 w-72 xl:h-[450px] xl:w-[450px] mx-auto my-12 hover:bg-[#a6eccf] shadow-spotify-dark shadow-2xl"
+    class="card relative transition duration-300 ease-in-out cursor-pointer m-3 bg-[#6af8fd] rounded-full h-64 w-64 xl:h-[450px] xl:w-[450px] mx-auto my-12 hover:bg-[#a6eccf] shadow-spotify-dark shadow-2xl"
     v-if="starSign"
     :class="name.toLowerCase()"
   >
@@ -85,7 +85,7 @@ const starSign = computed(() =>
       <div class="gradient z-0 absolute"></div>
 
       <div class="card__content z-30">
-        <h3 class="text-center text-white text-5xl font-semibold">
+        <h3 class="text-center !text-white text-4xl xl:text-5xl font-semibold">
           {{ name }}
         </h3>
         <img
@@ -93,7 +93,7 @@ const starSign = computed(() =>
           alt="star sign"
           class="icon h-24 w-24 mx-auto my-6"
         />
-        <p class="text-center font-bold">{{ description }}</p>
+        <p class="text-center font-bold text-sm">{{ description }}</p>
       </div>
     </div>
   </div>

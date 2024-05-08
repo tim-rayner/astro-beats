@@ -6,6 +6,7 @@ const useUiStore = defineStore("uiStore", {
       pageLoader: false,
       headerText: "LunaTunes",
       loadingStarsign: false,
+      currentPath: "/",
     };
   },
   actions: {
@@ -17,6 +18,9 @@ const useUiStore = defineStore("uiStore", {
     },
     setLoadingStarsign(value: boolean) {
       this.loadingStarsign = value;
+    },
+    setPath(value: string) {
+      this.currentPath = value;
     },
   },
 });

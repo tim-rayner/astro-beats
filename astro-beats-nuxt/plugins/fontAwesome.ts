@@ -13,6 +13,7 @@ import {
   faPlay,
   faPause,
   faMusic,
+  faHome,
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -24,7 +25,8 @@ library.add(
   faPlay,
   faPause,
   faSpotify,
-  faMusic
+  faMusic,
+  faHome
 );
 
 // This is important, we are going to let Nuxt worry about the CSS
