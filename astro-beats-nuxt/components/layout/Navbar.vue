@@ -5,6 +5,11 @@ import { storeToRefs } from "pinia";
 const { headerText, currentPath } = storeToRefs(useUiStore());
 
 const isHome = computed(() => currentPath.value === "/");
+
+const tweetText = `Check out the vibe for my horoscope (${headerText.value}) on LunaTunes! https://astro-beats.vercel.app${currentPath.value} 🌙 #LunaTunes #Horoscope`;
+const encodedTweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+  tweetText
+)}`;
 </script>
 
 <template>
@@ -27,8 +32,9 @@ const isHome = computed(() => currentPath.value === "/");
       </div>
       <div class="flex-1 text-right">
         <div class="flex items-center h-full">
+          <!-- TODO: tweet link to current starsign page -->
           <a
-            href="https://twitter.com/"
+            :href="encodedTweetUrl"
             target="_blank"
             class="navbar-item font-semibold flex ml-auto"
           >

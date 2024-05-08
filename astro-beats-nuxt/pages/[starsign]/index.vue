@@ -171,6 +171,7 @@ const updateActiveIndex = (event: number) => {
             :track="slotProps.data"
             :activeIndex="activeIndex"
             :index="slotProps.index"
+            @click="updateActiveIndex(slotProps.index)"
           />
         </template>
       </PrimeCarousel>
