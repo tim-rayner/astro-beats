@@ -22,7 +22,7 @@ const isHome = computed(() => currentPath.value === "/");
 
       <div class="flex-1 text-center">
         <router-link to="/" class="navbar-item">
-          <h1 class="text-5xl font-bold">{{ headerText }}</h1>
+          <h1 class="text-5xl font-bold !text-[#ffff]">{{ headerText }}</h1>
         </router-link>
       </div>
       <div class="flex-1 text-right">
