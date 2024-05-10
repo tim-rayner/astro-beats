@@ -136,12 +136,7 @@ const getSongs = async (
 };
 
 const updateActiveIndex = (event: number) => {
-  if (viewportWidth.value > 767) {
-    // replace 767 with the breakpoint you want
-    activeIndex.value = event + 1;
-  } else {
-    activeIndex.value = event;
-  }
+  activeIndex.value = event;
 };
 </script>
 
