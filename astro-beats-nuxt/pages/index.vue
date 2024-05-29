@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { StarSigns } from "../constants/starsign-constants";
-
 const router = useRouter();
 
 definePageMeta({
@@ -8,5 +6,7 @@ definePageMeta({
 });
 </script>
 <template>
-  <HomeHero />
+  <!-- offset the hero to ensure navbar overlaps -->
+  <HomeHero class="-mt-[65px]" />
+  <HomeStarSignList />
 </template>

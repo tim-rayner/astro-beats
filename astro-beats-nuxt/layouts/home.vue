@@ -9,7 +9,7 @@ import useUiStore from "~/store/ui";
 import { storeToRefs } from "pinia";
 import Particles from "@/assets/json/particles.json";
 
-// import Navbar from "~/components/layout/Navbar.vue";
+import Navbar from "~/components/layout/HomeNavbar.vue";
 
 const { pageLoader } = storeToRefs(useUiStore());
 </script>
@@ -25,7 +25,9 @@ const { pageLoader } = storeToRefs(useUiStore());
         :options="Particles"
         class="opacity-40"
       ></NuxtParticles>
-      <div class="content z-50 w-full overflow-hidden">
+      <div class="relative content w-full">
+        <span id="top"></span>
+        <Navbar />
         <slot />
       </div>
     </div>

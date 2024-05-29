@@ -2,6 +2,13 @@
 import HeroBackground from "@/assets/svg/moon-and-clouds.svg";
 
 const router = useRouter();
+
+const scrollToStarsignList = () => {
+  const element = document.querySelector("#starsign-list");
+  if (element) {
+    element.scrollIntoView({ behavior: "smooth" });
+  }
+};
 </script>
 
 <template>
@@ -15,7 +22,7 @@ const router = useRouter();
     </div>
 
     <div
-      class="hero h-screen lg:h-fit lg:min-h-[55vh] content-center items-center z-50 relative"
+      class="hero h-screen lg:h-fit lg:min-h-[55vh] xl:min-h-[75vh] content-center items-center z-50 relative"
     >
       <div
         class="content w-full items-center content-center max-w-[650px] lg:w-[55vw] mx-auto"
@@ -26,16 +33,22 @@ const router = useRouter();
       </div>
 
       <div
-        class="secondary-content flex flex-col px-6 lg:px-28 mt-[15vh] max-w-[650px] mx-auto"
+        class="secondary-content flex flex-col px-6 lg:px-28 mt-[10vh] max-w-[650px] mx-auto"
       >
-        <p class="text-lg text-white text-center">
-          Your one-stop shop for all things astrology and music
+        <p class="text-lg text-white text-center py-2">
+          Read your Horoscope for today, then listen to your stars ✨
         </p>
+        <button
+          @click="scrollToStarsignList"
+          class="mt-4 px-4 py-2 text-white bg-primary rounded-md"
+        >
+          Get Started
+        </button>
         <button
           @click="router.push('/starsigns')"
           class="mt-4 px-4 py-2 text-white bg-primary rounded-md"
         >
-          Get Started
+          What's my starsign?
         </button>
       </div>
     </div>

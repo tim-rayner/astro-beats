@@ -6,7 +6,7 @@ const router = useRouter();
 <template>
   <HomeHero />
   <div
-    class="bob-animation transition duration-300 ease-in-out grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 px-3"
+    class="transition duration-300 ease-in-out grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 px-3"
   >
     <StarCard
       v-for="sign in StarSigns"
