@@ -9,6 +9,13 @@ const scrollToStarsignList = () => {
     element.scrollIntoView({ behavior: "smooth" });
   }
 };
+
+const scrollToStarSignFinder = () => {
+  const element = document.querySelector("#starsign-finder");
+  if (element) {
+    element.scrollIntoView({ behavior: "smooth" });
+  }
+};
 </script>
 
 <template>
@@ -48,7 +55,7 @@ const scrollToStarsignList = () => {
             Get Started
           </button>
           <button
-            @click="router.push('/starsigns')"
+            @click="scrollToStarSignFinder"
             class="mt-4 px-4 py-2 text-white bg-primary rounded-md w-full mx-2"
           >
             What's my starsign?

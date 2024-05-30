@@ -116,7 +116,7 @@ const resetForm = () => {
 </script>
 
 <template>
-  <div class="pb-12 items-center content-center">
+  <div class="pb-12 items-center content-center" id="starsign-finder">
     <h2
       class="text-4xl !text-white text-center lg:my-12 mb-3 lg:mb-6 font-bold"
       id="starsign-list"
