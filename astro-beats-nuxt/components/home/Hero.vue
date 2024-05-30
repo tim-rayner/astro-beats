@@ -38,18 +38,22 @@ const scrollToStarsignList = () => {
         <p class="text-lg text-white text-center py-2">
           Read your Horoscope for today, then listen to your stars ✨
         </p>
-        <button
-          @click="scrollToStarsignList"
-          class="mt-4 px-4 py-2 text-white bg-primary rounded-md"
+        <div
+          class="button-group flex flex-col lg:flex-row items-center w-full justify-between"
         >
-          Get Started
-        </button>
-        <button
-          @click="router.push('/starsigns')"
-          class="mt-4 px-4 py-2 text-white bg-primary rounded-md"
-        >
-          What's my starsign?
-        </button>
+          <button
+            @click="scrollToStarsignList"
+            class="mt-4 px-4 py-2 text-white bg-primary rounded-md w-full mx-2"
+          >
+            Get Started
+          </button>
+          <button
+            @click="router.push('/starsigns')"
+            class="mt-4 px-4 py-2 text-white bg-primary rounded-md w-full mx-2"
+          >
+            What's my starsign?
+          </button>
+        </div>
       </div>
     </div>
   </div>
