@@ -29,7 +29,7 @@ const scrollToStarSignFinder = () => {
     </div>
 
     <div
-      class="hero h-screen lg:h-fit lg:min-h-[55vh] xl:min-h-[75vh] content-center items-center z-50 relative"
+      class="hero h-screen lg:h-fit lg:min-h-[50vh] xl:min-h-[75vh] content-center items-center z-50 relative"
     >
       <div
         class="content w-full items-center content-center max-w-[650px] lg:w-[55vw] mx-auto"
@@ -40,7 +40,7 @@ const scrollToStarSignFinder = () => {
       </div>
 
       <div
-        class="secondary-content flex flex-col px-6 lg:px-28 mt-[10vh] max-w-[650px] mx-auto"
+        class="secondary-content flex flex-col px-6 lg:px-28 mt-[10vh] max-w-[650px] mx-auto rounded-lg shadow-lg w-3/4"
       >
         <p class="text-lg text-white text-center py-2">
           Read your Horoscope for today, then listen to your stars ✨

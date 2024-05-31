@@ -12,6 +12,8 @@ import CAPRICORN from "@/assets/png/capricorn.png";
 import AQUARIUS from "@/assets/png/aquarius.png";
 import PISCES from "@/assets/png/pisces.png";
 
+const router = useRouter();
+
 const step = ref(0);
 
 const date = ref(new Date());
@@ -116,18 +118,22 @@ const resetForm = () => {
 </script>
 
 <template>
-  <div class="pb-12 items-center content-center" id="starsign-finder">
+  <div
+    class="pb-12 items-center content-center w-[90%] lg:w-3/4 mx-auto py-12"
+    id="starsign-finder"
+  >
     <h2
-      class="text-4xl !text-white text-center lg:my-12 mb-3 lg:mb-6 font-bold"
+      class="text-4xl !text-white lg:my-12 mb-3 lg:mb-6 font-bold"
       id="starsign-list"
     >
       Unsure of your Star Sign?
     </h2>
-    <p class="text-lg text-white text-center px-2 mb-12">
-      Use the form below, and we'll help you discover your vibe for the day 🎶
+    <p class="text-lg text-white mb-6">
+      Enter your date of birth below, and we'll help you discover your LunaTune
+      for the day 🎶 <br /><small> (the year is irrelevant)</small>
     </p>
 
-    <div class="card bg-primary p-4 rounded-lg w-[90%] lg:w-3/4 mx-auto">
+    <div class="card bg-primary rounded-lg mx-auto p-8">
       <form
         class="flex flex-col space-y-4"
         @submit.prevent="onSubmit"
@@ -140,7 +146,11 @@ const resetForm = () => {
         </button>
       </form>
 
-      <div class="flex flex-row" v-else>
+      <div
+        class="flex flex-row cursor-pointer"
+        @click="router.push(`/${starSign.name.toLowerCase()}`)"
+        v-else
+      >
         <div class="flex-col">
           <h3 class="!text-white text-xl font-bold">Your Star Sign is:</h3>
           <p class="text-white text-3xl font-bold">{{ starSign.name }}</p>
@@ -154,7 +164,7 @@ const resetForm = () => {
     </div>
 
     <Button
-      class="block mt-4 px-4 py-2 text-white bg-primary rounded-md mx-auto w-[90%] lg:w-3/4"
+      class="block mt-4 px-4 py-2 text-white bg-primary rounded-md mx-auto w-full"
       v-if="step === 1"
       @click="resetForm"
     >

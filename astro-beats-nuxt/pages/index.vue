@@ -9,5 +9,6 @@ definePageMeta({
   <!-- offset the hero to ensure navbar overlaps -->
   <HomeHero class="-mt-[65px]" />
   <HomeStarSignList />
+  <HomeAbout />
   <HomeStarSignFinder />
 </template>
