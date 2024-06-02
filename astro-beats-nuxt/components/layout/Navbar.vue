@@ -10,9 +10,16 @@ const tweetText = `Check out the vibe for my horoscope (${headerText.value}) on 
 const encodedTweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
   tweetText
 )}`;
+
+const scrollToTop = () => {
+  const element = document.querySelector("#top");
+  if (element) {
+    element.scrollIntoView({ behavior: "smooth" });
+  }
+};
 </script>
 
-<template>
+<!-- <template>
   <nav class="navbar w-full">
     <div class="flex flex-container p-3">
       <div class="flex-1">
@@ -32,7 +39,7 @@ const encodedTweetUrl = `https://twitter.com/intent/tweet?text=${encodeURICompon
       </div>
       <div class="flex-1 text-right">
         <div class="flex items-center h-full">
-          <!-- TODO: tweet link to current starsign page -->
+   
           <a
             :href="encodedTweetUrl"
             target="_blank"
@@ -42,6 +49,15 @@ const encodedTweetUrl = `https://twitter.com/intent/tweet?text=${encodeURICompon
           </a>
         </div>
       </div>
+    </div>
+  </nav>
+</template> -->
+<template>
+  <nav
+    class="navbar w-full sticky top-0 z-50 h-[65px] items-center content-center"
+  >
+    <div class="flex flex-container p-3">
+      <h2 @click="scrollToTop">LunaTunes</h2>
     </div>
   </nav>
 </template>

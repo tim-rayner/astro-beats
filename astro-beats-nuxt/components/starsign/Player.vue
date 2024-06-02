@@ -64,40 +64,32 @@ const artist = computed(() => {
 </script>
 
 <template>
-  <div
-    class="w-full mx-auto bg-white shadow-md rounded-lg rounded-t-none overflow-hidden dark:bg-zinc-900"
-    v-if="track"
-  >
-    <div class="flex justify-between items-center px-2 py-4">
-      <div class="flex items-center">
-        <div class="mx-2 h-15">
-          <h3
-            class="text-sm xl:text-xl font-medium text-gray-700 dark:text-gray-200 !text-[#000]"
-          >
-            {{ track.song }}
-          </h3>
-          <p class="text-gray-500 dark:text-gray-400 text-sm xl:text-lg">
-            {{ artist }}
-          </p>
-        </div>
-      </div>
-      <div class="flex items-center">
-        <font-awesome-icon
-          v-if="track.externalUrl"
-          icon="fab fa-spotify"
-          class="text-2xl text-spotify-green mx-3 cursor-pointer"
+  <div class="" v-if="track">
+    <div class="flex justify-center">
+      <div class="flex mx-auto w-fit">
+        <Button
+          class="mt-4 px-4 py-2 bg-white rounded-md mx-2 flex items-center justify-center"
           @click="redirectToSpotify(track.externalUrl!)"
-        />
-        <font-awesome-icon
-          :icon="!isPlaying ? 'fa-play' : 'fa-pause'"
-          class="text-2xl text-black cursor-pointer"
-          @click="toggleAudio"
+        >
+          <span class="m-auto mx-2">Listen on Spotify</span>
+          <font-awesome-icon
+            v-if="track.externalUrl"
+            icon="fab fa-spotify"
+            class="text-2xl text-spotify-green cursor-pointer w-fit m-auto"
+          />
+        </Button>
+
+        <Button
+          class="mt-4 px-4 py-2 bg-white rounded-md mx-2 flex items-center justify-center"
           v-if="track.previewUrl"
-        />
+          @click="toggleAudio"
+        >
+          <font-awesome-icon
+            :icon="!isPlaying ? 'fa-play' : 'fa-pause'"
+            class="text-2xl text-black cursor-pointer mx-auto"
+          />
+        </Button>
       </div>
-    </div>
-    <div class="relative">
-      <div class="absolute inset-0 flex items-center justify-center"></div>
     </div>
   </div>
 </template>

@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import useUiStore from "~/store/ui";
-import { storeToRefs } from "pinia";
-
 const scrollToTop = () => {
   const element = document.querySelector("#top");
   if (element) {

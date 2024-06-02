@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import HeroBackground from "@/assets/svg/moon-and-clouds.svg";
 
+interface Props {
+  starSign: string;
+}
+
+const { starSign } = defineProps<Props>();
+
 const router = useRouter();
 
 const scrollToStarsignList = () => {
@@ -29,38 +35,12 @@ const scrollToStarSignFinder = () => {
     </div>
 
     <div
-      class="hero h-screen lg:h-fit lg:min-h-[50vh] xl:min-h-[75vh] content-center items-center z-50 relative"
+      class="hero h-screen lg:h-fit lg:min-h-[30vh] xl:min-h-[35vh] content-center items-center z-50 relative"
     >
       <div
         class="content w-full items-center content-center max-w-[650px] lg:w-[55vw] mx-auto"
       >
-        <h1 class="hidden">Luna Tunes</h1>
-        <h1 class="text-8xl font-bold p-2">Luna</h1>
-        <h1 class="text-8xl font-bold p-2 text-right">Tunes</h1>
-      </div>
-
-      <div
-        class="secondary-content flex flex-col px-6 lg:px-28 mt-[10vh] max-w-[1200px] mx-auto rounded-lg w-3/4"
-      >
-        <p class="text-lg text-white text-center py-2">
-          Read your Horoscope for today, then listen to your stars ✨
-        </p>
-        <div
-          class="button-group flex flex-col lg:flex-row items-center w-full justify-between"
-        >
-          <button
-            @click="scrollToStarsignList"
-            class="mt-4 px-4 py-2 text-white bg-primary rounded-md w-full mx-2"
-          >
-            Get Started
-          </button>
-          <button
-            @click="scrollToStarSignFinder"
-            class="mt-4 px-4 py-2 text-white bg-primary rounded-md w-full mx-2"
-          >
-            What's my starsign?
-          </button>
-        </div>
+        <h1 class="text-8xl font-bold p-2">{{ starSign }}</h1>
       </div>
     </div>
   </div>

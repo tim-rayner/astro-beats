@@ -21,7 +21,8 @@ const { pageLoader } = storeToRefs(useUiStore());
   >
     <div class="relative flex flex-col items-center justify-center">
       <NuxtParticles id="tsparticles" :options="Particles"></NuxtParticles>
-      <div class="content z-50 w-full overflow-hidden">
+      <div class="relative content w-full">
+        <span id="top"></span>
         <Navbar />
         <slot />
       </div>

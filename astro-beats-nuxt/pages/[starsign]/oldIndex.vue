@@ -8,6 +8,10 @@ const { starsign: starSign } = route.params;
 
 const activeIndex = ref(0);
 
+const viewportWidth = ref(
+  typeof window !== "undefined" ? window.innerWidth : 0
+);
+
 const spotifyClientAccessToken = useCookie("spotifyClientAccessToken");
 
 const responsiveOptions = ref([
@@ -76,6 +80,9 @@ const getHoroscope = async () => {
       headers: {
         "Content-Type": "application/json",
       },
+      // body: JSON.stringify({
+      //   spotifyClientAccessToken: spotifyClientAccessToken,
+      // }),
     }
   );
   if (!response.ok) {
@@ -98,52 +105,88 @@ const getSongs = async (
   spotifyClientAccessToken: any,
   horoscopeReading: string
 ) => {
-  // const response = await fetch(
-  //   `https://astro-beats-api.vercel.app/api/horoscopes/V2/songs/${starSign}`,
-  //   {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       spotifyClientAccessToken: spotifyClientAccessToken,
-  //       horoscopeReading: horoscopeReading,
-  //     }),
-  //   }
-  // );
-  // if (!response.ok) {
-  //   console.error("HTTP error", response.status);
-  //   return new Error("HTTP error");
-  // }
-  // if (response.status === 404) {
-  //   console.error("404 error", response.status);
-  //   return new Error("404 error");
-  // }
-  // const data = await response.json();
-  // // console.warn('response', data);
-  // return data;
+  const response = await fetch(
+    `https://astro-beats-api.vercel.app/api/horoscopes/V2/songs/${starSign}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        spotifyClientAccessToken: spotifyClientAccessToken,
+        horoscopeReading: horoscopeReading,
+      }),
+    }
+  );
+
+  if (!response.ok) {
+    console.error("HTTP error", response.status);
+    return new Error("HTTP error");
+  }
+
+  if (response.status === 404) {
+    console.error("404 error", response.status);
+    return new Error("404 error");
+  }
+
+  const data = await response.json();
+  // console.warn('response', data);
+
+  return data;
 };
 
 const updateActiveIndex = (event: number) => {
   activeIndex.value = event;
 };
-
-const capitalizeFirstLetter = (string: string) => {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-};
 </script>
 
 <template>
-  <StarsignHero
-    class="-mt-[65px]"
-    :starSign="capitalizeFirstLetter(String(starSign))"
-  />
-  <div class="content w-[90%] lg:w-3/4 mx-auto">
-    <StarsignReading
-      v-if="horoscopeData?.horoscopeReading"
-      :starSign="capitalizeFirstLetter(String(starSign))"
-      :reading="horoscopeData?.horoscopeReading"
+  <div class="flex flex-col" v-if="horoscopeData">
+    <div class="header px-12 md:px-44 xl:px-[20vw]">
+      <h4 class="text-center text-xl font-bold">{{ horoscopeData.date }}</h4>
+      <p class="my-3 text-center text-2xl">
+        {{ horoscopeData.horoscopeReading }}
+      </p>
+    </div>
+
+    <div
+      class="songs-wrapper mx-auto max-w-full overflow-hidden"
+      v-if="songData"
+    >
+      <PrimeCarousel
+        :value="songData"
+        :responsiveOptions="responsiveOptions"
+        class="w-full"
+        :circular="true"
+        v-on:update:page="updateActiveIndex($event)"
+        :showIndicators="true"
+      >
+        <template #item="slotProps">
+          <StarsignTrack
+            :track="slotProps.data"
+            :activeIndex="activeIndex"
+            :index="slotProps.index"
+            @click="updateActiveIndex(slotProps.index)"
+          />
+        </template>
+      </PrimeCarousel>
+
+      <div class="explanation">
+        <p class="px-12 my-3 text-center text-2xl text-[#ffff]">
+          {{ songData[activeIndex]?.reason }}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div>
+      <LoadersSongLoader v-if="songsLoading" />
+    </div>
+    <Error
+      v-if="apiError"
+      code="500"
+      message="We ran into a problem whilst trying to load your horoscope"
     />
   </div>
-  <StarsignTrackCarousel :tracks="songData" v-if="!songData" />
 </template>

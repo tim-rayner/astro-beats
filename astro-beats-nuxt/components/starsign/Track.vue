@@ -12,20 +12,31 @@ const { track, activeIndex, index } = defineProps<Props>();
 
 <template>
   <div
-    class="my-6 shadow-lg bg-white rounded-3xl text-[#161937] mx-0 md:mx-6"
-    :class="{ 'active-card': index === activeIndex }"
+    class="card my-6 shadow-lg bg-primary rounded-3xl text-[#161937] flex flex-col items-center justify-center p-3 lg:max-w-[600px] mx-4 pb-12"
   >
-    <div class="img-wrapper">
+    <div class="title text-xl font-bold">{{ track.song }}</div>
+    <div class="artist text-lg text-left font-semibold">{{ track.artist }}</div>
+
+    <div class="img-container h-48 my-4">
       <img
+        class="w-full h-full object-cover rounded-full shadow-lg"
         :src="track.img"
-        alt="album cover"
-        class="w-full h-full rounded-3xl rounded-b-none shadow-lg shadow-background"
+        alt="Album cover"
       />
     </div>
-    <div class="player-wrapper">
+
+    <div class="player-wrapper w-full">
       <StarsignPlayer :track="track" />
     </div>
   </div>
+
+  <transition name="fade" mode="out-in">
+    <div
+      class="reason text-lg text-left font-semibold mx-4 mb-12 px-5 bg-background border border-primary rounded-lg shadow-lg p-4 lg:max-w-[600px]"
+    >
+      {{ track.reason }}
+    </div>
+  </transition>
 </template>
 
 <style>
