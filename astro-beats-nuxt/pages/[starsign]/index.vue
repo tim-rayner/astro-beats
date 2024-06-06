@@ -43,7 +43,7 @@ const songsLoading = ref(true);
 
 const horoscopeData = ref<HoroscopeResponse | null>(null);
 const songData = ref<SongResponse | null>(null);
-const apiError = ref<any>(null);
+const apiError = ref<Boolean>(false);
 
 // GET TRACK DATA
 onMounted(async () => {
@@ -61,7 +61,7 @@ onMounted(async () => {
     songsLoading.value = false;
   } catch (error) {
     console.error(error);
-    apiError.value = error;
+    apiError.value = true;
   }
 });
 
@@ -80,11 +80,13 @@ const getHoroscope = async () => {
   );
   if (!response.ok) {
     console.error("HTTP error", response.status);
+
     return new Error("HTTP error");
   }
 
   if (response.status === 404) {
     console.error("404 error", response.status);
+
     return new Error("404 error");
   }
 
@@ -98,30 +100,32 @@ const getSongs = async (
   spotifyClientAccessToken: any,
   horoscopeReading: string
 ) => {
-  // const response = await fetch(
-  //   `https://astro-beats-api.vercel.app/api/horoscopes/V2/songs/${starSign}`,
-  //   {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       spotifyClientAccessToken: spotifyClientAccessToken,
-  //       horoscopeReading: horoscopeReading,
-  //     }),
-  //   }
-  // );
-  // if (!response.ok) {
-  //   console.error("HTTP error", response.status);
-  //   return new Error("HTTP error");
-  // }
-  // if (response.status === 404) {
-  //   console.error("404 error", response.status);
-  //   return new Error("404 error");
-  // }
-  // const data = await response.json();
-  // // console.warn('response', data);
-  // return data;
+  const response = await fetch(
+    `https://astro-beats-api.vercel.app/api/horoscopes/V2/songs/${starSign}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        spotifyClientAccessToken: spotifyClientAccessToken,
+        horoscopeReading: horoscopeReading,
+      }),
+    }
+  );
+  if (!response.ok) {
+    console.error("HTTP error", response.status);
+    apiError.value = true;
+    return new Error("HTTP error");
+  }
+  if (response.status === 404) {
+    console.error("404 error", response.status);
+    apiError.value = true;
+    return new Error("404 error");
+  }
+  const data = await response.json();
+  // console.warn('response', data);
+  return data;
 };
 
 const updateActiveIndex = (event: number) => {
@@ -144,6 +148,13 @@ const capitalizeFirstLetter = (string: string) => {
       :starSign="capitalizeFirstLetter(String(starSign))"
       :reading="horoscopeData?.horoscopeReading"
     />
+    <LoadersMoonLoader v-if="horoscopeLoading" />
   </div>
-  <StarsignTrackCarousel :tracks="songData" v-if="!songData" />
+  <StarsignTrackCarousel :tracks="songData" v-if="songData" />
+  <div class="" v-else-if="apiError">
+    <p>
+      Ooops, we've run into a problem loading your tunes for today, try
+      refreshing this page to try again!
+    </p>
+  </div>
 </template>
