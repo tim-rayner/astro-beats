@@ -21,6 +21,6 @@ const formattedDate = new Intl.DateTimeFormat("en-US", {
     <h4 class="text-2xl lg:my-2 pl-1 lg:pl-0 mb-6 lg:mb-8 mt-2">
       for {{ formattedDate }}
     </h4>
-    <p class="bg-background lg:w-2/3">" {{ reading }} "</p>
+    <p class="bg-background lg:w-2/3">"{{ reading }}"</p>
   </div>
 </template>
