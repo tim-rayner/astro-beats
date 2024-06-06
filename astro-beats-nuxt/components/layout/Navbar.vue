@@ -57,7 +57,19 @@ const scrollToTop = () => {
     class="navbar w-full sticky top-0 z-50 h-[65px] items-center content-center"
   >
     <div class="flex flex-container p-3">
-      <h2 @click="scrollToTop">LunaTunes</h2>
+      <router-link
+        to="/"
+        class="navbar-item flex items-center h-full"
+        v-if="!isHome"
+      >
+        <h2 class="text-lg">LunaTunes</h2>
+      </router-link>
     </div>
   </nav>
 </template>
+
+<style lang="scss">
+nav {
+  z-index: 100;
+}
+</style>

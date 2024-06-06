@@ -133,7 +133,7 @@ const resetForm = () => {
       for the day 🎶 <br /><small> (the year is irrelevant)</small>
     </p>
 
-    <div class="card bg-primary rounded-lg mx-auto p-8">
+    <div class="card bg-primary rounded-lg mx-auto lg:mx-0 p-8 max-w-[800px]">
       <form
         class="flex flex-col space-y-4"
         @submit.prevent="onSubmit"
@@ -164,7 +164,7 @@ const resetForm = () => {
     </div>
 
     <Button
-      class="block mt-4 px-4 py-2 text-white bg-primary rounded-md mx-auto w-full"
+      class="block mt-4 px-4 py-2 text-white bg-primary rounded-md mx-auto lg:mx-0 w-full max-w-[800px]"
       v-if="step === 1"
       @click="resetForm"
     >
