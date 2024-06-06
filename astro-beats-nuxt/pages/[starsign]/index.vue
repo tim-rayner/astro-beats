@@ -10,34 +10,6 @@ const activeIndex = ref(0);
 
 const spotifyClientAccessToken = useCookie("spotifyClientAccessToken");
 
-const responsiveOptions = ref([
-  {
-    breakpoint: "4000px",
-    numVisible: 3,
-    numScroll: 1,
-  },
-  {
-    breakpoint: "1199px",
-    numVisible: 3,
-    numScroll: 1,
-  },
-  {
-    breakpoint: "500px",
-    numVisible: 1,
-    numScroll: 1,
-  },
-  {
-    breakpoint: "100px",
-    numVisible: 1,
-    numScroll: 1,
-  },
-  {
-    breakpoint: "100px",
-    numVisible: 1,
-    numScroll: 1,
-  },
-]);
-
 const horoscopeLoading = ref(true);
 const songsLoading = ref(true);
 
