@@ -65,7 +65,7 @@ const artist = computed(() => {
 
 <template>
   <div class="" v-if="track">
-    <div class="flex justify-center">
+    <div class="flex justify-center max-w-[350px] lg:max-w-[600px]">
       <div class="flex mx-auto w-fit">
         <Button
           class="mt-4 px-4 py-2 bg-white rounded-md mx-2 flex items-center justify-center"
