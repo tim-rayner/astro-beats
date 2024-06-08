@@ -64,32 +64,28 @@ const artist = computed(() => {
 </script>
 
 <template>
-  <div class="" v-if="track">
-    <div class="flex justify-center max-w-[350px] lg:max-w-[600px]">
-      <div class="flex mx-auto w-fit">
-        <Button
-          class="mt-4 px-4 py-2 bg-white rounded-md mx-2 flex items-center justify-center"
-          @click="redirectToSpotify(track.externalUrl!)"
-        >
-          <span class="m-auto mx-2">Listen on Spotify</span>
-          <font-awesome-icon
-            v-if="track.externalUrl"
-            icon="fab fa-spotify"
-            class="text-2xl text-spotify-green cursor-pointer w-fit m-auto"
-          />
-        </Button>
+  <div class="flex mx-auto w-fit" v-if="track">
+    <Button
+      class="mt-4 px-4 py-2 bg-white rounded-md mx-2 flex items-center justify-center"
+      @click="redirectToSpotify(track.externalUrl!)"
+    >
+      <span class="m-auto mx-2">Listen on Spotify</span>
+      <font-awesome-icon
+        v-if="track.externalUrl"
+        icon="fab fa-spotify"
+        class="text-2xl text-spotify-green cursor-pointer w-fit m-auto"
+      />
+    </Button>
 
-        <Button
-          class="mt-4 px-4 py-2 bg-white rounded-md mx-2 flex items-center justify-center"
-          v-if="track.previewUrl"
-          @click="toggleAudio"
-        >
-          <font-awesome-icon
-            :icon="!isPlaying ? 'fa-play' : 'fa-pause'"
-            class="text-2xl text-black cursor-pointer mx-auto"
-          />
-        </Button>
-      </div>
-    </div>
+    <Button
+      class="mt-4 px-4 py-2 bg-white rounded-md mx-2 flex items-center justify-center"
+      v-if="track.previewUrl"
+      @click="toggleAudio"
+    >
+      <font-awesome-icon
+        :icon="!isPlaying ? 'fa-play' : 'fa-pause'"
+        class="text-2xl text-black cursor-pointer mx-auto"
+      />
+    </Button>
   </div>
 </template>

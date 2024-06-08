@@ -11,7 +11,7 @@ const { track, activeIndex, index } = defineProps<Props>();
 </script>
 
 <template>
-  <div>
+  <div class="flex flex-col">
     <div
       class="card my-6 shadow-lg bg-primary rounded-3xl text-[#161937] p-3 max-w-[360px] lg:max-w-[600px] mx-4 pb-12"
     >
