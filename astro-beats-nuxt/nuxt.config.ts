@@ -32,4 +32,10 @@ export default defineNuxtConfig({
       include: ["Button", "Carousel", "InputText", "InputNumber", "Calendar"],
     },
   },
+
+  app: {
+    head: {
+      link: [{ rel: "icon", type: "image/png", href: "/favicon.ico" }],
+    },
+  },
 });
