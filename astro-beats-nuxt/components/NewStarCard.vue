@@ -78,7 +78,6 @@ const starSign = computed(() =>
 <template>
   <div
     class="card relative transition duration-300 ease-in-out cursor-pointer border border-white bg-[#B4A2FCBF] hover:bg-pink hover:shadow-lg overflow-x-hidden overflow-hidden"
-    v-if="starSign"
     :class="name.toLowerCase()"
   >
     <div class="flex color-[#0000] h-full justify-center flex-col z-20">
@@ -89,7 +88,7 @@ const starSign = computed(() =>
           {{ name }}
         </h3>
         <img
-          :src="starSign.img"
+          :src="starSign!.img"
           alt="star sign"
           class="icon h-24 w-24 mx-auto my-6"
         />

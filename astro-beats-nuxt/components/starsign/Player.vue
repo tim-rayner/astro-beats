@@ -64,7 +64,7 @@ const artist = computed(() => {
 </script>
 
 <template>
-  <div class="flex mx-auto w-fit" v-if="track">
+  <div class="flex flex-col lg:flex-row mx-auto w-fit" v-if="track">
     <Button
       class="mt-4 px-4 py-2 bg-white rounded-md mx-2 flex items-center justify-center"
       @click="redirectToSpotify(track.externalUrl!)"
