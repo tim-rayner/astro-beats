@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import favicon from "~/assets/favicon.png";
+
 import "primevue/resources/themes/aura-light-green/theme.css";
 
 useHead({
@@ -17,6 +19,8 @@ useHead({
       crossorigin: "anonymous",
     },
   ],
+
+  link: [{ rel: "icon", type: "image/png", href: favicon }],
 });
 </script>
 
