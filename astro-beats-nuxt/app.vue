@@ -6,7 +6,8 @@ useHead({
   meta: [
     {
       name: "description",
-      content: "This is the homepage",
+      content:
+        "Welcome to LunaTunes, where you can find the perfect song to match your horoscope! Updates daily. 🌙🎶",
     },
   ],
   script: [
@@ -16,6 +17,7 @@ useHead({
       crossorigin: "anonymous",
     },
   ],
+  link: [{ rel: "icon", type: "image/png", href: "/favicon.png" }],
 });
 </script>
 
