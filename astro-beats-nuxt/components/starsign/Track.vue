@@ -11,34 +11,36 @@ const { track, activeIndex, index } = defineProps<Props>();
 </script>
 
 <template>
-  <div
-    class="card my-6 shadow-lg bg-[#008000] md:bg-[#FFBF00] lg:bg-[#FF0000] rounded-3xl text-[#161937] p-3 max-w-[360px] lg:max-w-[600px] mx-auto pb-12"
-  >
-    <div class="title text-xl font-bold text-center">{{ track.song }}</div>
-    <div class="artist text-lg font-semibold text-center">
-      {{ track.artist }}
-    </div>
-
-    <div class="img-container h-48 w-48 my-4 m mx-auto">
-      <img
-        class="w-full h-full object-cover rounded-full shadow-lg"
-        :src="track.img"
-        alt="Album cover"
-      />
-    </div>
-
-    <div class="player-wrapper w-full">
-      <StarsignPlayer :track="track" />
-    </div>
-  </div>
-
-  <transition name="fade" mode="out-in">
+  <div class="flex flex-col mx-4">
     <div
-      class="reason text-lg text-left font-semibold mx-4 mb-12 px-5 bg-background border border-primary rounded-lg shadow-lg p-4 lg:max-w-[600px]"
+      class="card my-6 shadow-lg bg-primary rounded-3xl text-[#161937] p-3 max-w-[360px] lg:max-w-[600px] pb-12"
     >
-      {{ track.reason }}
+      <div class="title text-xl font-bold text-center">{{ track.song }}</div>
+      <div class="artist text-lg font-semibold text-center">
+        {{ track.artist }}
+      </div>
+
+      <div class="img-container h-48 w-48 my-4 m mx-auto">
+        <img
+          class="w-full h-full object-cover rounded-full shadow-lg"
+          :src="track.img"
+          alt="Album cover"
+        />
+      </div>
+
+      <div class="player-wrapper w-full">
+        <StarsignPlayer :track="track" />
+      </div>
     </div>
-  </transition>
+
+    <transition name="fade" mode="out-in">
+      <div
+        class="reason text-lg text-left font-semibold mx-4 mb-12 px-5 bg-background border border-primary rounded-lg shadow-lg p-4 lg:max-w-[600px]"
+      >
+        {{ track.reason }}
+      </div>
+    </transition>
+  </div>
 </template>
 
 <style>
