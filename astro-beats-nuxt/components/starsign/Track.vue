@@ -12,7 +12,7 @@ const { track, activeIndex, index } = defineProps<Props>();
 
 <template>
   <div
-    class="card my-6 shadow-lg bg-primary rounded-3xl text-[#161937] p-3 max-w-[360px] lg:max-w-[600px] mx-auto pb-12"
+    class="card my-6 shadow-lg bg-[#008000] md:bg-[#FFBF00] lg:bg-[#FF0000] rounded-3xl text-[#161937] p-3 max-w-[360px] lg:max-w-[600px] mx-auto pb-12"
   >
     <div class="title text-xl font-bold text-center">{{ track.song }}</div>
     <div class="artist text-lg font-semibold text-center">
