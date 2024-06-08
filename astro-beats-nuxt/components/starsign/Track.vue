@@ -29,7 +29,7 @@ const { track, activeIndex, index } = defineProps<Props>();
       </div>
 
       <div class="player-wrapper w-full">
-        <StarsignPlayer :track="track" />
+        <!-- <StarsignPlayer :track="track" /> -->
       </div>
     </div>
 
