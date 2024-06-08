@@ -12,22 +12,7 @@ const responsiveOptions = ref([
     numScroll: 1,
   },
   {
-    breakpoint: "1199px",
-    numVisible: 3,
-    numScroll: 1,
-  },
-  {
     breakpoint: "500px",
-    numVisible: 1,
-    numScroll: 1,
-  },
-  {
-    breakpoint: "100px",
-    numVisible: 1,
-    numScroll: 1,
-  },
-  {
-    breakpoint: "100px",
     numVisible: 1,
     numScroll: 1,
   },
