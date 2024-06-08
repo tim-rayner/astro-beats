@@ -97,7 +97,7 @@ const updateActiveIndex = (event: number) => {
 <template>
   <PrimeCarousel
     :value="tracks"
-    class="w-full max-w-[600px] lg:max-w-[1200px] mx-auto my-6"
+    class="w-full lg:max-w-[1200px] mx-auto my-6"
     :responsiveOptions="responsiveOptions"
     :circular="true"
     v-on:update:page="updateActiveIndex($event)"
