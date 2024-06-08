@@ -40,7 +40,7 @@ const scrollToStarSignFinder = () => {
       <div
         class="content w-full items-center content-center max-w-[650px] lg:w-[55vw] mx-auto"
       >
-        <h1 class="text-8xl font-bold p-2">{{ starSign }}</h1>
+        <h1 class="text-6xl lg:text-8xl font-bold p-2">{{ starSign }}</h1>
       </div>
     </div>
   </div>
