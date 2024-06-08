@@ -122,15 +122,12 @@ const resetForm = () => {
     class="pb-12 items-center content-center w-[90%] lg:w-3/4 mx-auto py-12"
     id="starsign-finder"
   >
-    <h2
-      class="text-4xl !text-white lg:my-12 mb-3 lg:mb-6 font-bold"
-      id="starsign-list"
-    >
+    <h2 class="text-4xl lg:my-12 mb-3 lg:mb-6 font-bold" id="starsign-list">
       Unsure of your Star Sign?
     </h2>
-    <p class="text-lg text-white mb-6">
+    <p class="text-lg mb-6">
       Enter your date of birth below, and we'll help you discover your LunaTune
-      for the day 🎶 <br /><small> (the year is irrelevant)</small>
+      for the day 🎶
     </p>
 
     <div class="card bg-primary rounded-lg mx-auto lg:mx-0 p-8 max-w-[800px]">
@@ -139,9 +136,9 @@ const resetForm = () => {
         @submit.prevent="onSubmit"
         v-if="step === 0"
       >
-        <label for="dob" class="text-white">Enter your Date of Birth:</label>
+        <label for="dob" class="">Enter your Date of Birth:</label>
         <PrimeCalendar v-model="date" inline showWeek />
-        <button type="submit" class="bg-white text-primary rounded-md p-2">
+        <button type="submit" class="bg-white rounded-md p-2">
           Find my Star Sign
         </button>
       </form>
@@ -152,8 +149,8 @@ const resetForm = () => {
         v-else
       >
         <div class="flex-col">
-          <h3 class="!text-white text-xl font-bold">Your Star Sign is:</h3>
-          <p class="text-white text-3xl font-bold">{{ starSign.name }}</p>
+          <h3 class="!text-black text-xl font-bold">Your Star Sign is:</h3>
+          <p class="text-3xl font-bold">{{ starSign.name }}</p>
         </div>
         <img
           :src="starSign.img"
@@ -164,7 +161,7 @@ const resetForm = () => {
     </div>
 
     <Button
-      class="block mt-4 px-4 py-2 text-white bg-primary rounded-md mx-auto lg:mx-0 w-full max-w-[800px]"
+      class="block mt-4 px-4 py-2 bg-primary rounded-md mx-auto lg:mx-0 w-full max-w-[800px]"
       v-if="step === 1"
       @click="resetForm"
     >

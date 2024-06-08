@@ -10,7 +10,9 @@ const scrollToTop = () => {
 <template>
   <nav class="navbar w-full sticky top-0 h-[65px] items-center content-center">
     <div class="flex flex-container p-3">
-      <h2 @click="scrollToTop" class="cursor-pointer text-lg">LunaTunes</h2>
+      <h2 @click="scrollToTop" class="cursor-pointer text-lg !text-white">
+        LunaTunes
+      </h2>
     </div>
   </nav>
 </template>
