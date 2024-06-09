@@ -25,10 +25,17 @@ useHead({
 </script>
 
 <template>
-  <div>
+  <div class="max-w-[100vw]">
     <NuxtLayout>
       <LoaderIndicator />
       <NuxtPage />
     </NuxtLayout>
   </div>
 </template>
+
+<style lang="scss">
+html,
+body {
+  background-color: #100821;
+}
+</style>

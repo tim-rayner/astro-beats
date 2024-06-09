@@ -6,6 +6,8 @@ const { headerText, currentPath } = storeToRefs(useUiStore());
 
 const isHome = computed(() => currentPath.value === "/");
 
+const navbarColor = ref("transparent");
+
 const tweetText = `Check out the vibe for my horoscope (${headerText.value}) on LunaTunes! https://astro-beats.vercel.app${currentPath.value} 🌙 #LunaTunes #Horoscope`;
 const encodedTweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
   tweetText
@@ -17,55 +19,37 @@ const scrollToTop = () => {
     element.scrollIntoView({ behavior: "smooth" });
   }
 };
+
+const updateNavbarColor = () => {
+  navbarColor.value = window.scrollY > 550 ? "bg-background" : "transparent";
+};
+
+onMounted(() => {
+  window.addEventListener("scroll", updateNavbarColor);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("scroll", updateNavbarColor);
+});
 </script>
 
-<!-- <template>
-  <nav class="navbar w-full">
-    <div class="flex flex-container p-3">
-      <div class="flex-1">
-        <router-link
-          to="/"
-          class="navbar-item flex items-center h-full"
-          v-if="!isHome"
-        >
-          <font-awesome-icon icon="fas fa-home" class="text-2xl" />
-        </router-link>
-      </div>
-
-      <div class="flex-1 text-center">
-        <router-link to="/" class="navbar-item">
-          <h1 class="text-5xl font-bold !text-[#ffff]">{{ headerText }}</h1>
-        </router-link>
-      </div>
-      <div class="flex-1 text-right">
-        <div class="flex items-center h-full">
-   
-          <a
-            :href="encodedTweetUrl"
-            target="_blank"
-            class="navbar-item font-semibold flex ml-auto"
-          >
-            <font-awesome-icon icon="fab fa-twitter" class="text-2xl" />
-          </a>
-        </div>
-      </div>
-    </div>
-  </nav>
-</template> -->
 <template>
   <nav
-    class="navbar w-full sticky top-0 z-50 h-[65px] items-center content-center"
+    :class="[
+      'navbar w-full sticky top-0 z-50 h-[65px] items-center content-center',
+      navbarColor,
+    ]"
   >
     <div class="flex flex-container p-3">
-      <span class="navbar-item flex items-center h-full mx-2">
+      <router-link to="/" class="navbar-item flex items-center h-full mx-2">
         <h2 class="text-lg !text-white">LunaTunes</h2>
-      </span>
+      </router-link>
+
       <router-link
         to="/"
-        class="navbar-item flex items-center h-full mx-2 my-auto"
-        v-if="!isHome"
+        class="navbar-item flex items-center h-full mx-2 my-auto ml-auto"
       >
-        <p class="text">Home</p>
+        <font-awesome-icon icon="fas fa-home" class="text-xl" />
       </router-link>
     </div>
   </nav>
